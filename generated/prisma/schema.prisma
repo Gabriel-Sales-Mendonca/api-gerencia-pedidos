@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int        @id @default(autoincrement())
+  name     String
+  email    String     @unique
+  password String
+  roles    UserRole[]
+
+  locations UserLocation[]
+
+  @@map("tb_user")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model Location {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  users         UserLocation[]
+  serviceOrders ServiceOrder[]
+
+  @@map("tb_location")
+}
+
+model UserLocation {
+  user_id     Int
+  location_id Int
+
+  user     User     @relation(fields: [user_id], references: [id])
+  location Location @relation(fields: [location_id], references: [id])
+
+  @@id([user_id, location_id])
+  @@map("tb_user_location")
+}
+
+model ServiceOrder {
+  id          Int    @id @default(autoincrement())
+  location_id Int
+  order_id    Int
+  product_id  String
+
+  location Location @relation(fields: [location_id], references: [id])
+  order    Order    @relation(fields: [order_id], references: [id])
+  product  Product  @relation(fields: [product_id], references: [id])
+
+  @@map("tb_service_order")
+}
+
+model Order {
+  id Int @id
+
+  serviceOrders ServiceOrder[]
+
+  @@map("tb_order")
+}
+
+model Product {
+  id   String  @id
+  name String?
+
+  serviceOrders ServiceOrder[]
+
+  @@map("tb_product")
+}
