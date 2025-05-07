@@ -8,6 +8,6 @@ import { LocationRepository } from './location.repository';
     imports: [DatabaseModule],
     controllers: [LocationController],
     providers: [LocationService, LocationRepository],
-    exports: []
+    exports: [LocationService]
 })
 export class LocationModule {}

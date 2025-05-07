@@ -12,6 +12,14 @@ export class LocationRepository {
         return await this.prisma.location.findMany();
     }
 
+    async findByName(nameRequest: string): Promise<Location | null> {
+        return await this.prisma.location.findUnique({
+            where: {
+                name: nameRequest
+            }
+        })
+    }
+
     async insert(location: LocationRequestDTO): Promise<Location> {
         return await this.prisma.location.create({
             data: {

@@ -8,6 +8,6 @@ import { ServiceOrderRepository } from './service-order.repository';
     imports: [DatabaseModule],
     controllers: [ServiceOrderController],
     providers: [ServiceOrderService, ServiceOrderRepository],
-    exports: []
+    exports: [ServiceOrderService]
 })
 export class ServiceOrderModule { }
