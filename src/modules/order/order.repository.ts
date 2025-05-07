@@ -14,6 +14,10 @@ export class OrderRepository {
         });
     }
 
+    async findAll(): Promise<Order[]> {
+        return await this.prisma.order.findMany()
+    }
+
     async findById(idRequest: number) {
         return await this.prisma.order.findUnique({
             where: {

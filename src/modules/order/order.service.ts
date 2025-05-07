@@ -51,4 +51,8 @@ export class OrderService {
         }
     }
 
+    async findAll() {
+        return await this.orderRepository.findAll()
+    }
+
 }
