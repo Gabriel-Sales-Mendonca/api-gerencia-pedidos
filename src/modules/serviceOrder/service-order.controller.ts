@@ -1,4 +1,4 @@
-import { Controller, Post } from "@nestjs/common";
+import { Controller, Get, Post } from "@nestjs/common";
 import { ServiceOrderService } from "./service-order.service";
 
 @Controller('service-orders')
@@ -8,6 +8,11 @@ export class ServiceOrderController {
     @Post()
     async insert() {
 
+    }
+
+    @Get()
+    async findAll() {
+        return await this.serviceOrderService.findAll()
     }
 
 }

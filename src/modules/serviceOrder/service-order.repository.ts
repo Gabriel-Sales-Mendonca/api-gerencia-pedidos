@@ -15,4 +15,8 @@ export class ServiceOrderRepository {
             }
         })
     }
+
+    async findAll() {
+        return await this.prisma.serviceOrder.findMany()
+    }
 }

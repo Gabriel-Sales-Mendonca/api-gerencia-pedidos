@@ -13,4 +13,8 @@ export class ServiceOrderService {
             serviceOrderRequestDTO.product_id
         )
     }
+
+    async findAll() {
+        return await this.serviceOrderRepository.findAll()
+    }
 }
