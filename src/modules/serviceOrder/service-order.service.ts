@@ -17,4 +17,12 @@ export class ServiceOrderService {
     async findAll() {
         return await this.serviceOrderRepository.findAll()
     }
+
+    async findGroupedOrders() {
+        return await this.serviceOrderRepository.findGroupedOrders()
+    }
+
+    async findByOrderId(orderId: number) {
+        return await this.serviceOrderRepository.findByOrderId(orderId)
+    }
 }

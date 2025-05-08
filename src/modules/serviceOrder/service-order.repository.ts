@@ -19,4 +19,31 @@ export class ServiceOrderRepository {
     async findAll() {
         return await this.prisma.serviceOrder.findMany()
     }
+
+    async findGroupedOrders() {
+        const result = await this.prisma.serviceOrder.groupBy({
+            by: ["order_id"],
+            _count: {
+                product_id: true
+            }
+        })
+
+        return result.map(item => ({
+            order_id: item.order_id,
+            product_count: item._count.product_id
+        }))
+    }
+
+    async findByOrderId(orderId: number) {
+        return await this.prisma.serviceOrder.findMany({
+            where: {
+                order_id: orderId
+            },
+            include: {
+                location: true,
+                product: true
+            }
+        })
+    }
+
 }
