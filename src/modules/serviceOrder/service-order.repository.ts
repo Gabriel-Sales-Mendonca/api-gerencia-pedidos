@@ -6,44 +6,98 @@ import { PrismaService } from "src/database/prisma/prisma.service";
 export class ServiceOrderRepository {
     constructor(private prisma: PrismaService) {}
 
-    async insert(location_id: number, order_id: number, product_id: string): Promise<ServiceOrder> {
+    async insert(location_id: number, order_id: number, product_id: string, company_id: number): Promise<ServiceOrder> {
         return await this.prisma.serviceOrder.create({
             data: {
                 location_id: location_id,
                 order_id: order_id,
-                product_id: product_id
+                product_id: product_id,
+                company_id: company_id
             }
         })
+    }
+
+    async findById(seviceOrderId: number) {
+      return await this.prisma.serviceOrder.findUnique({
+        where: { id: seviceOrderId }
+      })
     }
 
     async findAll() {
-        return await this.prisma.serviceOrder.findMany()
+        const grouped = await this.prisma.serviceOrder.groupBy({
+          by: ['order_id', 'company_id'],
+          _count: {
+            product_id: true
+          }
+        });
+
+        // Extrai os pares únicos (order_id, company_id)
+        const orderKeys = grouped.map(item => ({
+          id: item.order_id,
+          company_id: item.company_id,
+        }));
+      
+        // Extrai todos os companyIds únicos
+        const companyIds = [...new Set(orderKeys.map(item => item.company_id))];
+      
+        // Busca os nomes das empresas
+        const companies = await this.prisma.company.findMany({
+          where: { id: { in: companyIds } },
+          select: { id: true, name: true }
+        });
+
+        const companyMap = new Map(companies.map(c => [c.id, c.name]));
+      
+        // Busca as datas de entrega da tabela Order
+        const orders = await this.prisma.order.findMany({
+          where: {
+            OR: orderKeys
+          },
+          select: {
+            id: true,
+            company_id: true,
+            delivery_date: true
+          }
+        });
+      
+        const deliveryMap = new Map(
+          orders.map(o => [`${o.id}-${o.company_id}`, o.delivery_date])
+        );
+      
+        // Retorna os dados finais
+        return grouped.map(item => {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            const deliveryDate = deliveryMap.get(`${item.order_id}-${item.company_id}`);
+            
+            return {
+                order_id: item.order_id,
+                company_id: item.company_id,
+                company_name: companyMap.get(item.company_id),
+                delivery_date: deliveryDate
+                ? new Intl.DateTimeFormat('pt-BR').format(new Date(deliveryDate))
+                : null,
+                qtd_product: item._count.product_id
+            };
+        });
     }
 
-    async findGroupedOrders() {
-        const result = await this.prisma.serviceOrder.groupBy({
-            by: ["order_id"],
-            _count: {
-                product_id: true
-            }
-        })
-
-        return result.map(item => ({
-            order_id: item.order_id,
-            product_count: item._count.product_id
-        }))
-    }
-
-    async findByOrderId(orderId: number) {
+    async findDetailsByOrderAndCompany(orderId: number, companyId: number) {
         return await this.prisma.serviceOrder.findMany({
             where: {
-                order_id: orderId
+              order_id: Number(orderId),
+              company_id: Number(companyId)
             },
             include: {
-                location: true,
-                product: true
+              location: true
             }
         })
+    }
+
+    async updateLocation(serviceOrderId: number, locationId: number) {
+      return await this.prisma.serviceOrder.update({
+        where: { id: serviceOrderId },
+        data: { location_id: locationId }
+      })
     }
 
 }

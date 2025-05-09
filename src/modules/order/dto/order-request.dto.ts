@@ -13,4 +13,9 @@ export class OrderRequestDTO {
 
     @IsArray()
     products: ProductForOrderRequestDTO[]
+
+    @IsInt()
+    company_id: number
+
+    delivery_date?: Date
 }

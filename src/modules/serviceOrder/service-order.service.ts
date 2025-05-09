@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { ServiceOrderRepository } from "./service-order.repository";
 import { ServiceOrderRequestDTO } from "./dto/service-order-request.dto";
 
@@ -10,7 +10,8 @@ export class ServiceOrderService {
         await this.serviceOrderRepository.insert(
             serviceOrderRequestDTO.location_id,
             serviceOrderRequestDTO.order_id,
-            serviceOrderRequestDTO.product_id
+            serviceOrderRequestDTO.product_id,
+            serviceOrderRequestDTO.company_id
         )
     }
 
@@ -18,11 +19,18 @@ export class ServiceOrderService {
         return await this.serviceOrderRepository.findAll()
     }
 
-    async findGroupedOrders() {
-        return await this.serviceOrderRepository.findGroupedOrders()
+    async findDetailsByOrderAndCompany(orderId: number, companyId: number) {
+        return await this.serviceOrderRepository.findDetailsByOrderAndCompany(orderId, companyId)
     }
 
-    async findByOrderId(orderId: number) {
-        return await this.serviceOrderRepository.findByOrderId(orderId)
+    async updateLocation(serviceOrderId: number, locationId: number) {
+        const serviceOrder = await this.serviceOrderRepository.findById(serviceOrderId)
+
+        if (serviceOrder == null) {
+            throw new NotFoundException("Ordem de serviço não encontrada, id: " + serviceOrderId)
+        }
+
+        return await this.serviceOrderRepository.updateLocation(serviceOrderId, locationId)
     }
+
 }

@@ -142,14 +142,22 @@ exports.Prisma.ServiceOrderScalarFieldEnum = {
   id: 'id',
   location_id: 'location_id',
   order_id: 'order_id',
-  product_id: 'product_id'
+  product_id: 'product_id',
+  company_id: 'company_id'
 };
 
 exports.Prisma.OrderScalarFieldEnum = {
-  id: 'id'
+  id: 'id',
+  company_id: 'company_id',
+  delivery_date: 'delivery_date'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.CompanyScalarFieldEnum = {
   id: 'id',
   name: 'name'
 };
@@ -179,7 +187,8 @@ exports.Prisma.ModelName = {
   UserLocation: 'UserLocation',
   ServiceOrder: 'ServiceOrder',
   Order: 'Order',
-  Product: 'Product'
+  Product: 'Product',
+  Company: 'Company'
 };
 
 /**

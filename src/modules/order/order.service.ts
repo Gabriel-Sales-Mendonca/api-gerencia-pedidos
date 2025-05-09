@@ -16,13 +16,20 @@ export class OrderService {
 
     async insert(orderRequestDTO: OrderRequestDTO) {
 
-        const order = await this.orderRepository.findById(orderRequestDTO.id);
+        const order = await this.orderRepository.findByIdAndCompany(
+            orderRequestDTO.id,
+            orderRequestDTO.company_id
+        )
 
         if (order) {
-            throw new ConflictException("Pedido já cadastrado!")
+            throw new ConflictException("Pedido já cadastrado nessa empresa!")
         }
 
-        const orderCreated = await this.orderRepository.insert({ id: orderRequestDTO.id })
+        const orderCreated = await this.orderRepository.insert({ 
+                id: orderRequestDTO.id,
+                company_id: orderRequestDTO.company_id,
+                delivery_date: orderRequestDTO.delivery_date
+            })
 
         for (const product of orderRequestDTO.products) {
             const productDB = await this.searchOrCreateProduct(product)
@@ -36,7 +43,8 @@ export class OrderService {
             await this.serviceOrderService.insert({
                 location_id: locationAlmoxarifado.id,
                 order_id: orderCreated.id,
-                product_id: productDB.id
+                product_id: productDB.id,
+                company_id: orderRequestDTO.company_id
             })
         }
     }

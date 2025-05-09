@@ -57,20 +57,24 @@ model ServiceOrder {
   location_id Int
   order_id    Int
   product_id  String
+  company_id  Int
 
   location Location @relation(fields: [location_id], references: [id])
-  order    Order    @relation(fields: [order_id], references: [id])
   product  Product  @relation(fields: [product_id], references: [id])
+  order    Order    @relation(fields: [order_id, company_id], references: [id, company_id])
+  company  Company  @relation(fields: [company_id], references: [id])
 
   @@map("tb_service_order")
 }
 
 model Order {
-  id Int @id
-
+  id            Int
+  company_id    Int
+  delivery_date DateTime?
+  company       Company        @relation(fields: [company_id], references: [id])
   serviceOrders ServiceOrder[]
 
-  @@map("tb_order")
+  @@id([id, company_id]) // Chave composta!
 }
 
 model Product {
@@ -80,4 +84,11 @@ model Product {
   serviceOrders ServiceOrder[]
 
   @@map("tb_product")
+}
+
+model Company {
+  id            Int            @id @default(autoincrement())
+  name          String
+  orders        Order[]
+  serviceOrders ServiceOrder[]
 }

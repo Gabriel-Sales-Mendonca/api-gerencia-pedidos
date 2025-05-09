@@ -12,4 +12,8 @@ export class ServiceOrderRequestDTO {
     @IsString()
     @IsNotEmpty()
     product_id: string
+
+    @IsNumber()
+    @IsNotEmpty()
+    company_id: number
 }
