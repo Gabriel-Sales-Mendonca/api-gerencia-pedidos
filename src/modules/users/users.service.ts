@@ -6,6 +6,7 @@ import { UserRequestDTO } from './dto/user-request.dto';
 import { UsersRepository } from './users.repository';
 import { UserResponseDTO } from './dto/user-response.dto';
 import { User } from 'generated/prisma';
+import { UserRelateToLocationDTO } from './dto/user-relate-to-location-request.dto';
 
 @Injectable()
 export class UsersService {
@@ -39,5 +40,9 @@ export class UsersService {
             email: createdUser.email,
             roles: createdUser.roles
         }
+    }
+
+    async relateToLocation(data: UserRelateToLocationDTO) {
+        return await this.usersRepository.relateToLocation(data.userId, data.locationId)
     }
 }

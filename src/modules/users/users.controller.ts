@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Query, ParseIntPipe } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 import { UserRequestDTO } from './dto/user-request.dto';
@@ -29,5 +29,13 @@ export class UsersController {
     @Post()
     async insert(@Body() userRequestDTO: UserRequestDTO): Promise<UserResponseDTO> {
         return await this.usersService.insert(userRequestDTO);
+    }
+
+    @Put("/:id")
+    async relateToLocation(
+        @Param('id', ParseIntPipe) userId: number,
+        @Query('locationId', ParseIntPipe) locationId: number
+    ) {
+        return await this.usersService.relateToLocation({ userId: userId, locationId: locationId })
     }
 }
