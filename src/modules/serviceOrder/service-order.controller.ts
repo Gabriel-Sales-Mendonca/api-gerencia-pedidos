@@ -1,4 +1,5 @@
-import { Controller, Get, Param, ParseIntPipe, Patch, Post, Query } from "@nestjs/common";
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { Controller, Get, Param, ParseIntPipe, Patch, Post, Query, Request } from "@nestjs/common";
 import { ServiceOrderService } from "./service-order.service";
 
 @Controller('service-orders')
@@ -34,9 +35,11 @@ export class ServiceOrderController {
     @Patch('/update-destination/:id')
     async updateDestination(
         @Param('id', ParseIntPipe) serviceOrderId: number,
-        @Query('location_id', ParseIntPipe) location_id: number
+        @Query('location_id', ParseIntPipe) location_id: number,
+        @Request() req
     ) {
-        return await this.serviceOrderService.updateDestination(serviceOrderId, location_id)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        return await this.serviceOrderService.updateDestination(req.user.sub, serviceOrderId, location_id)
     }
 
 }

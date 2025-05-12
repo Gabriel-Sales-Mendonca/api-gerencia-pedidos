@@ -107,4 +107,11 @@ export class ServiceOrderRepository {
       })
     }
 
+    async fetchUserLocations(userId: number) {
+      return await this.prisma.userLocation.findMany({
+        where: { user_id: userId },
+        select: { location_id: true }
+      })
+    }
+
 }
