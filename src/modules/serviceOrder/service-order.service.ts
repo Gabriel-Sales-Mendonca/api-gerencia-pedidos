@@ -33,4 +33,14 @@ export class ServiceOrderService {
         return await this.serviceOrderRepository.updateLocation(serviceOrderId, locationId)
     }
 
+    async updateDestination(serviceOrderId: number, locationId: number) {
+        const serviceOrder = await this.serviceOrderRepository.findById(serviceOrderId)
+
+        if (serviceOrder == null) {
+            throw new NotFoundException("Ordem de serviço não encontrada, id: " + serviceOrderId)
+        }
+
+        return await this.serviceOrderRepository.updateDestination(serviceOrderId, locationId)
+    }
+
 }

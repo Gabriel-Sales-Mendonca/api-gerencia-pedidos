@@ -1465,11 +1465,13 @@ export namespace Prisma {
   export type LocationCountOutputType = {
     users: number
     serviceOrders: number
+    destinationOrders: number
   }
 
   export type LocationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | LocationCountOutputTypeCountUsersArgs
     serviceOrders?: boolean | LocationCountOutputTypeCountServiceOrdersArgs
+    destinationOrders?: boolean | LocationCountOutputTypeCountDestinationOrdersArgs
   }
 
   // Custom InputTypes
@@ -1494,6 +1496,13 @@ export namespace Prisma {
    * LocationCountOutputType without action
    */
   export type LocationCountOutputTypeCountServiceOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceOrderWhereInput
+  }
+
+  /**
+   * LocationCountOutputType without action
+   */
+  export type LocationCountOutputTypeCountDestinationOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ServiceOrderWhereInput
   }
 
@@ -2880,6 +2889,7 @@ export namespace Prisma {
     name?: boolean
     users?: boolean | Location$usersArgs<ExtArgs>
     serviceOrders?: boolean | Location$serviceOrdersArgs<ExtArgs>
+    destinationOrders?: boolean | Location$destinationOrdersArgs<ExtArgs>
     _count?: boolean | LocationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["location"]>
 
@@ -2902,6 +2912,7 @@ export namespace Prisma {
   export type LocationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Location$usersArgs<ExtArgs>
     serviceOrders?: boolean | Location$serviceOrdersArgs<ExtArgs>
+    destinationOrders?: boolean | Location$destinationOrdersArgs<ExtArgs>
     _count?: boolean | LocationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type LocationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2912,6 +2923,7 @@ export namespace Prisma {
     objects: {
       users: Prisma.$UserLocationPayload<ExtArgs>[]
       serviceOrders: Prisma.$ServiceOrderPayload<ExtArgs>[]
+      destinationOrders: Prisma.$ServiceOrderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3312,6 +3324,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     users<T extends Location$usersArgs<ExtArgs> = {}>(args?: Subset<T, Location$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserLocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     serviceOrders<T extends Location$serviceOrdersArgs<ExtArgs> = {}>(args?: Subset<T, Location$serviceOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServiceOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    destinationOrders<T extends Location$destinationOrdersArgs<ExtArgs> = {}>(args?: Subset<T, Location$destinationOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServiceOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3758,6 +3771,30 @@ export namespace Prisma {
    * Location.serviceOrders
    */
   export type Location$serviceOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ServiceOrder
+     */
+    select?: ServiceOrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ServiceOrder
+     */
+    omit?: ServiceOrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceOrderInclude<ExtArgs> | null
+    where?: ServiceOrderWhereInput
+    orderBy?: ServiceOrderOrderByWithRelationInput | ServiceOrderOrderByWithRelationInput[]
+    cursor?: ServiceOrderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServiceOrderScalarFieldEnum | ServiceOrderScalarFieldEnum[]
+  }
+
+  /**
+   * Location.destinationOrders
+   */
+  export type Location$destinationOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ServiceOrder
      */
@@ -4877,6 +4914,7 @@ export namespace Prisma {
   export type ServiceOrderAvgAggregateOutputType = {
     id: number | null
     location_id: number | null
+    destination_id: number | null
     order_id: number | null
     company_id: number | null
   }
@@ -4884,6 +4922,7 @@ export namespace Prisma {
   export type ServiceOrderSumAggregateOutputType = {
     id: number | null
     location_id: number | null
+    destination_id: number | null
     order_id: number | null
     company_id: number | null
   }
@@ -4891,6 +4930,7 @@ export namespace Prisma {
   export type ServiceOrderMinAggregateOutputType = {
     id: number | null
     location_id: number | null
+    destination_id: number | null
     order_id: number | null
     product_id: string | null
     company_id: number | null
@@ -4899,6 +4939,7 @@ export namespace Prisma {
   export type ServiceOrderMaxAggregateOutputType = {
     id: number | null
     location_id: number | null
+    destination_id: number | null
     order_id: number | null
     product_id: string | null
     company_id: number | null
@@ -4907,6 +4948,7 @@ export namespace Prisma {
   export type ServiceOrderCountAggregateOutputType = {
     id: number
     location_id: number
+    destination_id: number
     order_id: number
     product_id: number
     company_id: number
@@ -4917,6 +4959,7 @@ export namespace Prisma {
   export type ServiceOrderAvgAggregateInputType = {
     id?: true
     location_id?: true
+    destination_id?: true
     order_id?: true
     company_id?: true
   }
@@ -4924,6 +4967,7 @@ export namespace Prisma {
   export type ServiceOrderSumAggregateInputType = {
     id?: true
     location_id?: true
+    destination_id?: true
     order_id?: true
     company_id?: true
   }
@@ -4931,6 +4975,7 @@ export namespace Prisma {
   export type ServiceOrderMinAggregateInputType = {
     id?: true
     location_id?: true
+    destination_id?: true
     order_id?: true
     product_id?: true
     company_id?: true
@@ -4939,6 +4984,7 @@ export namespace Prisma {
   export type ServiceOrderMaxAggregateInputType = {
     id?: true
     location_id?: true
+    destination_id?: true
     order_id?: true
     product_id?: true
     company_id?: true
@@ -4947,6 +4993,7 @@ export namespace Prisma {
   export type ServiceOrderCountAggregateInputType = {
     id?: true
     location_id?: true
+    destination_id?: true
     order_id?: true
     product_id?: true
     company_id?: true
@@ -5042,6 +5089,7 @@ export namespace Prisma {
   export type ServiceOrderGroupByOutputType = {
     id: number
     location_id: number
+    destination_id: number | null
     order_id: number
     product_id: string
     company_id: number
@@ -5069,10 +5117,12 @@ export namespace Prisma {
   export type ServiceOrderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     location_id?: boolean
+    destination_id?: boolean
     order_id?: boolean
     product_id?: boolean
     company_id?: boolean
     location?: boolean | LocationDefaultArgs<ExtArgs>
+    destinationLocation?: boolean | ServiceOrder$destinationLocationArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -5081,10 +5131,12 @@ export namespace Prisma {
   export type ServiceOrderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     location_id?: boolean
+    destination_id?: boolean
     order_id?: boolean
     product_id?: boolean
     company_id?: boolean
     location?: boolean | LocationDefaultArgs<ExtArgs>
+    destinationLocation?: boolean | ServiceOrder$destinationLocationArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -5093,10 +5145,12 @@ export namespace Prisma {
   export type ServiceOrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     location_id?: boolean
+    destination_id?: boolean
     order_id?: boolean
     product_id?: boolean
     company_id?: boolean
     location?: boolean | LocationDefaultArgs<ExtArgs>
+    destinationLocation?: boolean | ServiceOrder$destinationLocationArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -5105,26 +5159,30 @@ export namespace Prisma {
   export type ServiceOrderSelectScalar = {
     id?: boolean
     location_id?: boolean
+    destination_id?: boolean
     order_id?: boolean
     product_id?: boolean
     company_id?: boolean
   }
 
-  export type ServiceOrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "location_id" | "order_id" | "product_id" | "company_id", ExtArgs["result"]["serviceOrder"]>
+  export type ServiceOrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "location_id" | "destination_id" | "order_id" | "product_id" | "company_id", ExtArgs["result"]["serviceOrder"]>
   export type ServiceOrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     location?: boolean | LocationDefaultArgs<ExtArgs>
+    destinationLocation?: boolean | ServiceOrder$destinationLocationArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
   }
   export type ServiceOrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     location?: boolean | LocationDefaultArgs<ExtArgs>
+    destinationLocation?: boolean | ServiceOrder$destinationLocationArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
   }
   export type ServiceOrderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     location?: boolean | LocationDefaultArgs<ExtArgs>
+    destinationLocation?: boolean | ServiceOrder$destinationLocationArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
     company?: boolean | CompanyDefaultArgs<ExtArgs>
@@ -5134,6 +5192,7 @@ export namespace Prisma {
     name: "ServiceOrder"
     objects: {
       location: Prisma.$LocationPayload<ExtArgs>
+      destinationLocation: Prisma.$LocationPayload<ExtArgs> | null
       product: Prisma.$ProductPayload<ExtArgs>
       order: Prisma.$OrderPayload<ExtArgs>
       company: Prisma.$CompanyPayload<ExtArgs>
@@ -5141,6 +5200,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       location_id: number
+      destination_id: number | null
       order_id: number
       product_id: string
       company_id: number
@@ -5539,6 +5599,7 @@ export namespace Prisma {
   export interface Prisma__ServiceOrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     location<T extends LocationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LocationDefaultArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    destinationLocation<T extends ServiceOrder$destinationLocationArgs<ExtArgs> = {}>(args?: Subset<T, ServiceOrder$destinationLocationArgs<ExtArgs>>): Prisma__LocationClient<$Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     order<T extends OrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderDefaultArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     company<T extends CompanyDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CompanyDefaultArgs<ExtArgs>>): Prisma__CompanyClient<$Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -5573,6 +5634,7 @@ export namespace Prisma {
   interface ServiceOrderFieldRefs {
     readonly id: FieldRef<"ServiceOrder", 'Int'>
     readonly location_id: FieldRef<"ServiceOrder", 'Int'>
+    readonly destination_id: FieldRef<"ServiceOrder", 'Int'>
     readonly order_id: FieldRef<"ServiceOrder", 'Int'>
     readonly product_id: FieldRef<"ServiceOrder", 'String'>
     readonly company_id: FieldRef<"ServiceOrder", 'Int'>
@@ -5969,6 +6031,25 @@ export namespace Prisma {
      * Limit how many ServiceOrders to delete.
      */
     limit?: number
+  }
+
+  /**
+   * ServiceOrder.destinationLocation
+   */
+  export type ServiceOrder$destinationLocationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LocationInclude<ExtArgs> | null
+    where?: LocationWhereInput
   }
 
   /**
@@ -9258,6 +9339,7 @@ export namespace Prisma {
   export const ServiceOrderScalarFieldEnum: {
     id: 'id',
     location_id: 'location_id',
+    destination_id: 'destination_id',
     order_id: 'order_id',
     product_id: 'product_id',
     company_id: 'company_id'
@@ -9458,6 +9540,7 @@ export namespace Prisma {
     name?: StringFilter<"Location"> | string
     users?: UserLocationListRelationFilter
     serviceOrders?: ServiceOrderListRelationFilter
+    destinationOrders?: ServiceOrderListRelationFilter
   }
 
   export type LocationOrderByWithRelationInput = {
@@ -9465,6 +9548,7 @@ export namespace Prisma {
     name?: SortOrder
     users?: UserLocationOrderByRelationAggregateInput
     serviceOrders?: ServiceOrderOrderByRelationAggregateInput
+    destinationOrders?: ServiceOrderOrderByRelationAggregateInput
   }
 
   export type LocationWhereUniqueInput = Prisma.AtLeast<{
@@ -9475,6 +9559,7 @@ export namespace Prisma {
     NOT?: LocationWhereInput | LocationWhereInput[]
     users?: UserLocationListRelationFilter
     serviceOrders?: ServiceOrderListRelationFilter
+    destinationOrders?: ServiceOrderListRelationFilter
   }, "id" | "name">
 
   export type LocationOrderByWithAggregationInput = {
@@ -9547,10 +9632,12 @@ export namespace Prisma {
     NOT?: ServiceOrderWhereInput | ServiceOrderWhereInput[]
     id?: IntFilter<"ServiceOrder"> | number
     location_id?: IntFilter<"ServiceOrder"> | number
+    destination_id?: IntNullableFilter<"ServiceOrder"> | number | null
     order_id?: IntFilter<"ServiceOrder"> | number
     product_id?: StringFilter<"ServiceOrder"> | string
     company_id?: IntFilter<"ServiceOrder"> | number
     location?: XOR<LocationScalarRelationFilter, LocationWhereInput>
+    destinationLocation?: XOR<LocationNullableScalarRelationFilter, LocationWhereInput> | null
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
@@ -9559,10 +9646,12 @@ export namespace Prisma {
   export type ServiceOrderOrderByWithRelationInput = {
     id?: SortOrder
     location_id?: SortOrder
+    destination_id?: SortOrderInput | SortOrder
     order_id?: SortOrder
     product_id?: SortOrder
     company_id?: SortOrder
     location?: LocationOrderByWithRelationInput
+    destinationLocation?: LocationOrderByWithRelationInput
     product?: ProductOrderByWithRelationInput
     order?: OrderOrderByWithRelationInput
     company?: CompanyOrderByWithRelationInput
@@ -9574,10 +9663,12 @@ export namespace Prisma {
     OR?: ServiceOrderWhereInput[]
     NOT?: ServiceOrderWhereInput | ServiceOrderWhereInput[]
     location_id?: IntFilter<"ServiceOrder"> | number
+    destination_id?: IntNullableFilter<"ServiceOrder"> | number | null
     order_id?: IntFilter<"ServiceOrder"> | number
     product_id?: StringFilter<"ServiceOrder"> | string
     company_id?: IntFilter<"ServiceOrder"> | number
     location?: XOR<LocationScalarRelationFilter, LocationWhereInput>
+    destinationLocation?: XOR<LocationNullableScalarRelationFilter, LocationWhereInput> | null
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
     company?: XOR<CompanyScalarRelationFilter, CompanyWhereInput>
@@ -9586,6 +9677,7 @@ export namespace Prisma {
   export type ServiceOrderOrderByWithAggregationInput = {
     id?: SortOrder
     location_id?: SortOrder
+    destination_id?: SortOrderInput | SortOrder
     order_id?: SortOrder
     product_id?: SortOrder
     company_id?: SortOrder
@@ -9602,6 +9694,7 @@ export namespace Prisma {
     NOT?: ServiceOrderScalarWhereWithAggregatesInput | ServiceOrderScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"ServiceOrder"> | number
     location_id?: IntWithAggregatesFilter<"ServiceOrder"> | number
+    destination_id?: IntNullableWithAggregatesFilter<"ServiceOrder"> | number | null
     order_id?: IntWithAggregatesFilter<"ServiceOrder"> | number
     product_id?: StringWithAggregatesFilter<"ServiceOrder"> | string
     company_id?: IntWithAggregatesFilter<"ServiceOrder"> | number
@@ -9804,6 +9897,7 @@ export namespace Prisma {
     name: string
     users?: UserLocationCreateNestedManyWithoutLocationInput
     serviceOrders?: ServiceOrderCreateNestedManyWithoutLocationInput
+    destinationOrders?: ServiceOrderCreateNestedManyWithoutDestinationLocationInput
   }
 
   export type LocationUncheckedCreateInput = {
@@ -9811,12 +9905,14 @@ export namespace Prisma {
     name: string
     users?: UserLocationUncheckedCreateNestedManyWithoutLocationInput
     serviceOrders?: ServiceOrderUncheckedCreateNestedManyWithoutLocationInput
+    destinationOrders?: ServiceOrderUncheckedCreateNestedManyWithoutDestinationLocationInput
   }
 
   export type LocationUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     users?: UserLocationUpdateManyWithoutLocationNestedInput
     serviceOrders?: ServiceOrderUpdateManyWithoutLocationNestedInput
+    destinationOrders?: ServiceOrderUpdateManyWithoutDestinationLocationNestedInput
   }
 
   export type LocationUncheckedUpdateInput = {
@@ -9824,6 +9920,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     users?: UserLocationUncheckedUpdateManyWithoutLocationNestedInput
     serviceOrders?: ServiceOrderUncheckedUpdateManyWithoutLocationNestedInput
+    destinationOrders?: ServiceOrderUncheckedUpdateManyWithoutDestinationLocationNestedInput
   }
 
   export type LocationCreateManyInput = {
@@ -9876,6 +9973,7 @@ export namespace Prisma {
 
   export type ServiceOrderCreateInput = {
     location: LocationCreateNestedOneWithoutServiceOrdersInput
+    destinationLocation?: LocationCreateNestedOneWithoutDestinationOrdersInput
     product: ProductCreateNestedOneWithoutServiceOrdersInput
     order: OrderCreateNestedOneWithoutServiceOrdersInput
     company: CompanyCreateNestedOneWithoutServiceOrdersInput
@@ -9884,6 +9982,7 @@ export namespace Prisma {
   export type ServiceOrderUncheckedCreateInput = {
     id?: number
     location_id: number
+    destination_id?: number | null
     order_id: number
     product_id: string
     company_id: number
@@ -9891,6 +9990,7 @@ export namespace Prisma {
 
   export type ServiceOrderUpdateInput = {
     location?: LocationUpdateOneRequiredWithoutServiceOrdersNestedInput
+    destinationLocation?: LocationUpdateOneWithoutDestinationOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutServiceOrdersNestedInput
     order?: OrderUpdateOneRequiredWithoutServiceOrdersNestedInput
     company?: CompanyUpdateOneRequiredWithoutServiceOrdersNestedInput
@@ -9899,6 +9999,7 @@ export namespace Prisma {
   export type ServiceOrderUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     location_id?: IntFieldUpdateOperationsInput | number
+    destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
     company_id?: IntFieldUpdateOperationsInput | number
@@ -9907,6 +10008,7 @@ export namespace Prisma {
   export type ServiceOrderCreateManyInput = {
     id?: number
     location_id: number
+    destination_id?: number | null
     order_id: number
     product_id: string
     company_id: number
@@ -9919,6 +10021,7 @@ export namespace Prisma {
   export type ServiceOrderUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     location_id?: IntFieldUpdateOperationsInput | number
+    destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
     company_id?: IntFieldUpdateOperationsInput | number
@@ -10229,6 +10332,22 @@ export namespace Prisma {
     location_id?: SortOrder
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type LocationNullableScalarRelationFilter = {
+    is?: LocationWhereInput | null
+    isNot?: LocationWhereInput | null
+  }
+
   export type ProductScalarRelationFilter = {
     is?: ProductWhereInput
     isNot?: ProductWhereInput
@@ -10244,9 +10363,15 @@ export namespace Prisma {
     isNot?: CompanyWhereInput
   }
 
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type ServiceOrderCountOrderByAggregateInput = {
     id?: SortOrder
     location_id?: SortOrder
+    destination_id?: SortOrder
     order_id?: SortOrder
     product_id?: SortOrder
     company_id?: SortOrder
@@ -10255,6 +10380,7 @@ export namespace Prisma {
   export type ServiceOrderAvgOrderByAggregateInput = {
     id?: SortOrder
     location_id?: SortOrder
+    destination_id?: SortOrder
     order_id?: SortOrder
     company_id?: SortOrder
   }
@@ -10262,6 +10388,7 @@ export namespace Prisma {
   export type ServiceOrderMaxOrderByAggregateInput = {
     id?: SortOrder
     location_id?: SortOrder
+    destination_id?: SortOrder
     order_id?: SortOrder
     product_id?: SortOrder
     company_id?: SortOrder
@@ -10270,6 +10397,7 @@ export namespace Prisma {
   export type ServiceOrderMinOrderByAggregateInput = {
     id?: SortOrder
     location_id?: SortOrder
+    destination_id?: SortOrder
     order_id?: SortOrder
     product_id?: SortOrder
     company_id?: SortOrder
@@ -10278,8 +10406,25 @@ export namespace Prisma {
   export type ServiceOrderSumOrderByAggregateInput = {
     id?: SortOrder
     location_id?: SortOrder
+    destination_id?: SortOrder
     order_id?: SortOrder
     company_id?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -10291,11 +10436,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type OrderIdCompany_idCompoundUniqueInput = {
@@ -10503,6 +10643,13 @@ export namespace Prisma {
     connect?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
   }
 
+  export type ServiceOrderCreateNestedManyWithoutDestinationLocationInput = {
+    create?: XOR<ServiceOrderCreateWithoutDestinationLocationInput, ServiceOrderUncheckedCreateWithoutDestinationLocationInput> | ServiceOrderCreateWithoutDestinationLocationInput[] | ServiceOrderUncheckedCreateWithoutDestinationLocationInput[]
+    connectOrCreate?: ServiceOrderCreateOrConnectWithoutDestinationLocationInput | ServiceOrderCreateOrConnectWithoutDestinationLocationInput[]
+    createMany?: ServiceOrderCreateManyDestinationLocationInputEnvelope
+    connect?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
+  }
+
   export type UserLocationUncheckedCreateNestedManyWithoutLocationInput = {
     create?: XOR<UserLocationCreateWithoutLocationInput, UserLocationUncheckedCreateWithoutLocationInput> | UserLocationCreateWithoutLocationInput[] | UserLocationUncheckedCreateWithoutLocationInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutLocationInput | UserLocationCreateOrConnectWithoutLocationInput[]
@@ -10514,6 +10661,13 @@ export namespace Prisma {
     create?: XOR<ServiceOrderCreateWithoutLocationInput, ServiceOrderUncheckedCreateWithoutLocationInput> | ServiceOrderCreateWithoutLocationInput[] | ServiceOrderUncheckedCreateWithoutLocationInput[]
     connectOrCreate?: ServiceOrderCreateOrConnectWithoutLocationInput | ServiceOrderCreateOrConnectWithoutLocationInput[]
     createMany?: ServiceOrderCreateManyLocationInputEnvelope
+    connect?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
+  }
+
+  export type ServiceOrderUncheckedCreateNestedManyWithoutDestinationLocationInput = {
+    create?: XOR<ServiceOrderCreateWithoutDestinationLocationInput, ServiceOrderUncheckedCreateWithoutDestinationLocationInput> | ServiceOrderCreateWithoutDestinationLocationInput[] | ServiceOrderUncheckedCreateWithoutDestinationLocationInput[]
+    connectOrCreate?: ServiceOrderCreateOrConnectWithoutDestinationLocationInput | ServiceOrderCreateOrConnectWithoutDestinationLocationInput[]
+    createMany?: ServiceOrderCreateManyDestinationLocationInputEnvelope
     connect?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
   }
 
@@ -10545,6 +10699,20 @@ export namespace Prisma {
     deleteMany?: ServiceOrderScalarWhereInput | ServiceOrderScalarWhereInput[]
   }
 
+  export type ServiceOrderUpdateManyWithoutDestinationLocationNestedInput = {
+    create?: XOR<ServiceOrderCreateWithoutDestinationLocationInput, ServiceOrderUncheckedCreateWithoutDestinationLocationInput> | ServiceOrderCreateWithoutDestinationLocationInput[] | ServiceOrderUncheckedCreateWithoutDestinationLocationInput[]
+    connectOrCreate?: ServiceOrderCreateOrConnectWithoutDestinationLocationInput | ServiceOrderCreateOrConnectWithoutDestinationLocationInput[]
+    upsert?: ServiceOrderUpsertWithWhereUniqueWithoutDestinationLocationInput | ServiceOrderUpsertWithWhereUniqueWithoutDestinationLocationInput[]
+    createMany?: ServiceOrderCreateManyDestinationLocationInputEnvelope
+    set?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
+    disconnect?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
+    delete?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
+    connect?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
+    update?: ServiceOrderUpdateWithWhereUniqueWithoutDestinationLocationInput | ServiceOrderUpdateWithWhereUniqueWithoutDestinationLocationInput[]
+    updateMany?: ServiceOrderUpdateManyWithWhereWithoutDestinationLocationInput | ServiceOrderUpdateManyWithWhereWithoutDestinationLocationInput[]
+    deleteMany?: ServiceOrderScalarWhereInput | ServiceOrderScalarWhereInput[]
+  }
+
   export type UserLocationUncheckedUpdateManyWithoutLocationNestedInput = {
     create?: XOR<UserLocationCreateWithoutLocationInput, UserLocationUncheckedCreateWithoutLocationInput> | UserLocationCreateWithoutLocationInput[] | UserLocationUncheckedCreateWithoutLocationInput[]
     connectOrCreate?: UserLocationCreateOrConnectWithoutLocationInput | UserLocationCreateOrConnectWithoutLocationInput[]
@@ -10570,6 +10738,20 @@ export namespace Prisma {
     connect?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
     update?: ServiceOrderUpdateWithWhereUniqueWithoutLocationInput | ServiceOrderUpdateWithWhereUniqueWithoutLocationInput[]
     updateMany?: ServiceOrderUpdateManyWithWhereWithoutLocationInput | ServiceOrderUpdateManyWithWhereWithoutLocationInput[]
+    deleteMany?: ServiceOrderScalarWhereInput | ServiceOrderScalarWhereInput[]
+  }
+
+  export type ServiceOrderUncheckedUpdateManyWithoutDestinationLocationNestedInput = {
+    create?: XOR<ServiceOrderCreateWithoutDestinationLocationInput, ServiceOrderUncheckedCreateWithoutDestinationLocationInput> | ServiceOrderCreateWithoutDestinationLocationInput[] | ServiceOrderUncheckedCreateWithoutDestinationLocationInput[]
+    connectOrCreate?: ServiceOrderCreateOrConnectWithoutDestinationLocationInput | ServiceOrderCreateOrConnectWithoutDestinationLocationInput[]
+    upsert?: ServiceOrderUpsertWithWhereUniqueWithoutDestinationLocationInput | ServiceOrderUpsertWithWhereUniqueWithoutDestinationLocationInput[]
+    createMany?: ServiceOrderCreateManyDestinationLocationInputEnvelope
+    set?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
+    disconnect?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
+    delete?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
+    connect?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
+    update?: ServiceOrderUpdateWithWhereUniqueWithoutDestinationLocationInput | ServiceOrderUpdateWithWhereUniqueWithoutDestinationLocationInput[]
+    updateMany?: ServiceOrderUpdateManyWithWhereWithoutDestinationLocationInput | ServiceOrderUpdateManyWithWhereWithoutDestinationLocationInput[]
     deleteMany?: ServiceOrderScalarWhereInput | ServiceOrderScalarWhereInput[]
   }
 
@@ -10607,6 +10789,12 @@ export namespace Prisma {
     connect?: LocationWhereUniqueInput
   }
 
+  export type LocationCreateNestedOneWithoutDestinationOrdersInput = {
+    create?: XOR<LocationCreateWithoutDestinationOrdersInput, LocationUncheckedCreateWithoutDestinationOrdersInput>
+    connectOrCreate?: LocationCreateOrConnectWithoutDestinationOrdersInput
+    connect?: LocationWhereUniqueInput
+  }
+
   export type ProductCreateNestedOneWithoutServiceOrdersInput = {
     create?: XOR<ProductCreateWithoutServiceOrdersInput, ProductUncheckedCreateWithoutServiceOrdersInput>
     connectOrCreate?: ProductCreateOrConnectWithoutServiceOrdersInput
@@ -10633,6 +10821,16 @@ export namespace Prisma {
     update?: XOR<XOR<LocationUpdateToOneWithWhereWithoutServiceOrdersInput, LocationUpdateWithoutServiceOrdersInput>, LocationUncheckedUpdateWithoutServiceOrdersInput>
   }
 
+  export type LocationUpdateOneWithoutDestinationOrdersNestedInput = {
+    create?: XOR<LocationCreateWithoutDestinationOrdersInput, LocationUncheckedCreateWithoutDestinationOrdersInput>
+    connectOrCreate?: LocationCreateOrConnectWithoutDestinationOrdersInput
+    upsert?: LocationUpsertWithoutDestinationOrdersInput
+    disconnect?: LocationWhereInput | boolean
+    delete?: LocationWhereInput | boolean
+    connect?: LocationWhereUniqueInput
+    update?: XOR<XOR<LocationUpdateToOneWithWhereWithoutDestinationOrdersInput, LocationUpdateWithoutDestinationOrdersInput>, LocationUncheckedUpdateWithoutDestinationOrdersInput>
+  }
+
   export type ProductUpdateOneRequiredWithoutServiceOrdersNestedInput = {
     create?: XOR<ProductCreateWithoutServiceOrdersInput, ProductUncheckedCreateWithoutServiceOrdersInput>
     connectOrCreate?: ProductCreateOrConnectWithoutServiceOrdersInput
@@ -10655,6 +10853,14 @@ export namespace Prisma {
     upsert?: CompanyUpsertWithoutServiceOrdersInput
     connect?: CompanyWhereUniqueInput
     update?: XOR<XOR<CompanyUpdateToOneWithWhereWithoutServiceOrdersInput, CompanyUpdateWithoutServiceOrdersInput>, CompanyUncheckedUpdateWithoutServiceOrdersInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type CompanyCreateNestedOneWithoutOrdersInput = {
@@ -10916,6 +11122,44 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -10939,17 +11183,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -11044,6 +11277,7 @@ export namespace Prisma {
   }
 
   export type ServiceOrderCreateWithoutLocationInput = {
+    destinationLocation?: LocationCreateNestedOneWithoutDestinationOrdersInput
     product: ProductCreateNestedOneWithoutServiceOrdersInput
     order: OrderCreateNestedOneWithoutServiceOrdersInput
     company: CompanyCreateNestedOneWithoutServiceOrdersInput
@@ -11051,6 +11285,7 @@ export namespace Prisma {
 
   export type ServiceOrderUncheckedCreateWithoutLocationInput = {
     id?: number
+    destination_id?: number | null
     order_id: number
     product_id: string
     company_id: number
@@ -11063,6 +11298,31 @@ export namespace Prisma {
 
   export type ServiceOrderCreateManyLocationInputEnvelope = {
     data: ServiceOrderCreateManyLocationInput | ServiceOrderCreateManyLocationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ServiceOrderCreateWithoutDestinationLocationInput = {
+    location: LocationCreateNestedOneWithoutServiceOrdersInput
+    product: ProductCreateNestedOneWithoutServiceOrdersInput
+    order: OrderCreateNestedOneWithoutServiceOrdersInput
+    company: CompanyCreateNestedOneWithoutServiceOrdersInput
+  }
+
+  export type ServiceOrderUncheckedCreateWithoutDestinationLocationInput = {
+    id?: number
+    location_id: number
+    order_id: number
+    product_id: string
+    company_id: number
+  }
+
+  export type ServiceOrderCreateOrConnectWithoutDestinationLocationInput = {
+    where: ServiceOrderWhereUniqueInput
+    create: XOR<ServiceOrderCreateWithoutDestinationLocationInput, ServiceOrderUncheckedCreateWithoutDestinationLocationInput>
+  }
+
+  export type ServiceOrderCreateManyDestinationLocationInputEnvelope = {
+    data: ServiceOrderCreateManyDestinationLocationInput | ServiceOrderCreateManyDestinationLocationInput[]
     skipDuplicates?: boolean
   }
 
@@ -11104,9 +11364,26 @@ export namespace Prisma {
     NOT?: ServiceOrderScalarWhereInput | ServiceOrderScalarWhereInput[]
     id?: IntFilter<"ServiceOrder"> | number
     location_id?: IntFilter<"ServiceOrder"> | number
+    destination_id?: IntNullableFilter<"ServiceOrder"> | number | null
     order_id?: IntFilter<"ServiceOrder"> | number
     product_id?: StringFilter<"ServiceOrder"> | string
     company_id?: IntFilter<"ServiceOrder"> | number
+  }
+
+  export type ServiceOrderUpsertWithWhereUniqueWithoutDestinationLocationInput = {
+    where: ServiceOrderWhereUniqueInput
+    update: XOR<ServiceOrderUpdateWithoutDestinationLocationInput, ServiceOrderUncheckedUpdateWithoutDestinationLocationInput>
+    create: XOR<ServiceOrderCreateWithoutDestinationLocationInput, ServiceOrderUncheckedCreateWithoutDestinationLocationInput>
+  }
+
+  export type ServiceOrderUpdateWithWhereUniqueWithoutDestinationLocationInput = {
+    where: ServiceOrderWhereUniqueInput
+    data: XOR<ServiceOrderUpdateWithoutDestinationLocationInput, ServiceOrderUncheckedUpdateWithoutDestinationLocationInput>
+  }
+
+  export type ServiceOrderUpdateManyWithWhereWithoutDestinationLocationInput = {
+    where: ServiceOrderScalarWhereInput
+    data: XOR<ServiceOrderUpdateManyMutationInput, ServiceOrderUncheckedUpdateManyWithoutDestinationLocationInput>
   }
 
   export type UserCreateWithoutLocationsInput = {
@@ -11132,12 +11409,14 @@ export namespace Prisma {
   export type LocationCreateWithoutUsersInput = {
     name: string
     serviceOrders?: ServiceOrderCreateNestedManyWithoutLocationInput
+    destinationOrders?: ServiceOrderCreateNestedManyWithoutDestinationLocationInput
   }
 
   export type LocationUncheckedCreateWithoutUsersInput = {
     id?: number
     name: string
     serviceOrders?: ServiceOrderUncheckedCreateNestedManyWithoutLocationInput
+    destinationOrders?: ServiceOrderUncheckedCreateNestedManyWithoutDestinationLocationInput
   }
 
   export type LocationCreateOrConnectWithoutUsersInput = {
@@ -11185,28 +11464,50 @@ export namespace Prisma {
   export type LocationUpdateWithoutUsersInput = {
     name?: StringFieldUpdateOperationsInput | string
     serviceOrders?: ServiceOrderUpdateManyWithoutLocationNestedInput
+    destinationOrders?: ServiceOrderUpdateManyWithoutDestinationLocationNestedInput
   }
 
   export type LocationUncheckedUpdateWithoutUsersInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     serviceOrders?: ServiceOrderUncheckedUpdateManyWithoutLocationNestedInput
+    destinationOrders?: ServiceOrderUncheckedUpdateManyWithoutDestinationLocationNestedInput
   }
 
   export type LocationCreateWithoutServiceOrdersInput = {
     name: string
     users?: UserLocationCreateNestedManyWithoutLocationInput
+    destinationOrders?: ServiceOrderCreateNestedManyWithoutDestinationLocationInput
   }
 
   export type LocationUncheckedCreateWithoutServiceOrdersInput = {
     id?: number
     name: string
     users?: UserLocationUncheckedCreateNestedManyWithoutLocationInput
+    destinationOrders?: ServiceOrderUncheckedCreateNestedManyWithoutDestinationLocationInput
   }
 
   export type LocationCreateOrConnectWithoutServiceOrdersInput = {
     where: LocationWhereUniqueInput
     create: XOR<LocationCreateWithoutServiceOrdersInput, LocationUncheckedCreateWithoutServiceOrdersInput>
+  }
+
+  export type LocationCreateWithoutDestinationOrdersInput = {
+    name: string
+    users?: UserLocationCreateNestedManyWithoutLocationInput
+    serviceOrders?: ServiceOrderCreateNestedManyWithoutLocationInput
+  }
+
+  export type LocationUncheckedCreateWithoutDestinationOrdersInput = {
+    id?: number
+    name: string
+    users?: UserLocationUncheckedCreateNestedManyWithoutLocationInput
+    serviceOrders?: ServiceOrderUncheckedCreateNestedManyWithoutLocationInput
+  }
+
+  export type LocationCreateOrConnectWithoutDestinationOrdersInput = {
+    where: LocationWhereUniqueInput
+    create: XOR<LocationCreateWithoutDestinationOrdersInput, LocationUncheckedCreateWithoutDestinationOrdersInput>
   }
 
   export type ProductCreateWithoutServiceOrdersInput = {
@@ -11271,12 +11572,38 @@ export namespace Prisma {
   export type LocationUpdateWithoutServiceOrdersInput = {
     name?: StringFieldUpdateOperationsInput | string
     users?: UserLocationUpdateManyWithoutLocationNestedInput
+    destinationOrders?: ServiceOrderUpdateManyWithoutDestinationLocationNestedInput
   }
 
   export type LocationUncheckedUpdateWithoutServiceOrdersInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     users?: UserLocationUncheckedUpdateManyWithoutLocationNestedInput
+    destinationOrders?: ServiceOrderUncheckedUpdateManyWithoutDestinationLocationNestedInput
+  }
+
+  export type LocationUpsertWithoutDestinationOrdersInput = {
+    update: XOR<LocationUpdateWithoutDestinationOrdersInput, LocationUncheckedUpdateWithoutDestinationOrdersInput>
+    create: XOR<LocationCreateWithoutDestinationOrdersInput, LocationUncheckedCreateWithoutDestinationOrdersInput>
+    where?: LocationWhereInput
+  }
+
+  export type LocationUpdateToOneWithWhereWithoutDestinationOrdersInput = {
+    where?: LocationWhereInput
+    data: XOR<LocationUpdateWithoutDestinationOrdersInput, LocationUncheckedUpdateWithoutDestinationOrdersInput>
+  }
+
+  export type LocationUpdateWithoutDestinationOrdersInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    users?: UserLocationUpdateManyWithoutLocationNestedInput
+    serviceOrders?: ServiceOrderUpdateManyWithoutLocationNestedInput
+  }
+
+  export type LocationUncheckedUpdateWithoutDestinationOrdersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    users?: UserLocationUncheckedUpdateManyWithoutLocationNestedInput
+    serviceOrders?: ServiceOrderUncheckedUpdateManyWithoutLocationNestedInput
   }
 
   export type ProductUpsertWithoutServiceOrdersInput = {
@@ -11363,6 +11690,7 @@ export namespace Prisma {
 
   export type ServiceOrderCreateWithoutOrderInput = {
     location: LocationCreateNestedOneWithoutServiceOrdersInput
+    destinationLocation?: LocationCreateNestedOneWithoutDestinationOrdersInput
     product: ProductCreateNestedOneWithoutServiceOrdersInput
     company: CompanyCreateNestedOneWithoutServiceOrdersInput
   }
@@ -11370,6 +11698,7 @@ export namespace Prisma {
   export type ServiceOrderUncheckedCreateWithoutOrderInput = {
     id?: number
     location_id: number
+    destination_id?: number | null
     product_id: string
   }
 
@@ -11423,6 +11752,7 @@ export namespace Prisma {
 
   export type ServiceOrderCreateWithoutProductInput = {
     location: LocationCreateNestedOneWithoutServiceOrdersInput
+    destinationLocation?: LocationCreateNestedOneWithoutDestinationOrdersInput
     order: OrderCreateNestedOneWithoutServiceOrdersInput
     company: CompanyCreateNestedOneWithoutServiceOrdersInput
   }
@@ -11430,6 +11760,7 @@ export namespace Prisma {
   export type ServiceOrderUncheckedCreateWithoutProductInput = {
     id?: number
     location_id: number
+    destination_id?: number | null
     order_id: number
     company_id: number
   }
@@ -11484,6 +11815,7 @@ export namespace Prisma {
 
   export type ServiceOrderCreateWithoutCompanyInput = {
     location: LocationCreateNestedOneWithoutServiceOrdersInput
+    destinationLocation?: LocationCreateNestedOneWithoutDestinationOrdersInput
     product: ProductCreateNestedOneWithoutServiceOrdersInput
     order: OrderCreateNestedOneWithoutServiceOrdersInput
   }
@@ -11491,6 +11823,7 @@ export namespace Prisma {
   export type ServiceOrderUncheckedCreateWithoutCompanyInput = {
     id?: number
     location_id: number
+    destination_id?: number | null
     order_id: number
     product_id: string
   }
@@ -11568,6 +11901,15 @@ export namespace Prisma {
 
   export type ServiceOrderCreateManyLocationInput = {
     id?: number
+    destination_id?: number | null
+    order_id: number
+    product_id: string
+    company_id: number
+  }
+
+  export type ServiceOrderCreateManyDestinationLocationInput = {
+    id?: number
+    location_id: number
     order_id: number
     product_id: string
     company_id: number
@@ -11586,6 +11928,7 @@ export namespace Prisma {
   }
 
   export type ServiceOrderUpdateWithoutLocationInput = {
+    destinationLocation?: LocationUpdateOneWithoutDestinationOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutServiceOrdersNestedInput
     order?: OrderUpdateOneRequiredWithoutServiceOrdersNestedInput
     company?: CompanyUpdateOneRequiredWithoutServiceOrdersNestedInput
@@ -11593,6 +11936,7 @@ export namespace Prisma {
 
   export type ServiceOrderUncheckedUpdateWithoutLocationInput = {
     id?: IntFieldUpdateOperationsInput | number
+    destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
     company_id?: IntFieldUpdateOperationsInput | number
@@ -11600,6 +11944,30 @@ export namespace Prisma {
 
   export type ServiceOrderUncheckedUpdateManyWithoutLocationInput = {
     id?: IntFieldUpdateOperationsInput | number
+    destination_id?: NullableIntFieldUpdateOperationsInput | number | null
+    order_id?: IntFieldUpdateOperationsInput | number
+    product_id?: StringFieldUpdateOperationsInput | string
+    company_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ServiceOrderUpdateWithoutDestinationLocationInput = {
+    location?: LocationUpdateOneRequiredWithoutServiceOrdersNestedInput
+    product?: ProductUpdateOneRequiredWithoutServiceOrdersNestedInput
+    order?: OrderUpdateOneRequiredWithoutServiceOrdersNestedInput
+    company?: CompanyUpdateOneRequiredWithoutServiceOrdersNestedInput
+  }
+
+  export type ServiceOrderUncheckedUpdateWithoutDestinationLocationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    location_id?: IntFieldUpdateOperationsInput | number
+    order_id?: IntFieldUpdateOperationsInput | number
+    product_id?: StringFieldUpdateOperationsInput | string
+    company_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ServiceOrderUncheckedUpdateManyWithoutDestinationLocationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    location_id?: IntFieldUpdateOperationsInput | number
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
     company_id?: IntFieldUpdateOperationsInput | number
@@ -11608,11 +11976,13 @@ export namespace Prisma {
   export type ServiceOrderCreateManyOrderInput = {
     id?: number
     location_id: number
+    destination_id?: number | null
     product_id: string
   }
 
   export type ServiceOrderUpdateWithoutOrderInput = {
     location?: LocationUpdateOneRequiredWithoutServiceOrdersNestedInput
+    destinationLocation?: LocationUpdateOneWithoutDestinationOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutServiceOrdersNestedInput
     company?: CompanyUpdateOneRequiredWithoutServiceOrdersNestedInput
   }
@@ -11620,24 +11990,28 @@ export namespace Prisma {
   export type ServiceOrderUncheckedUpdateWithoutOrderInput = {
     id?: IntFieldUpdateOperationsInput | number
     location_id?: IntFieldUpdateOperationsInput | number
+    destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     product_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type ServiceOrderUncheckedUpdateManyWithoutOrderInput = {
     id?: IntFieldUpdateOperationsInput | number
     location_id?: IntFieldUpdateOperationsInput | number
+    destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     product_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type ServiceOrderCreateManyProductInput = {
     id?: number
     location_id: number
+    destination_id?: number | null
     order_id: number
     company_id: number
   }
 
   export type ServiceOrderUpdateWithoutProductInput = {
     location?: LocationUpdateOneRequiredWithoutServiceOrdersNestedInput
+    destinationLocation?: LocationUpdateOneWithoutDestinationOrdersNestedInput
     order?: OrderUpdateOneRequiredWithoutServiceOrdersNestedInput
     company?: CompanyUpdateOneRequiredWithoutServiceOrdersNestedInput
   }
@@ -11645,6 +12019,7 @@ export namespace Prisma {
   export type ServiceOrderUncheckedUpdateWithoutProductInput = {
     id?: IntFieldUpdateOperationsInput | number
     location_id?: IntFieldUpdateOperationsInput | number
+    destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     order_id?: IntFieldUpdateOperationsInput | number
     company_id?: IntFieldUpdateOperationsInput | number
   }
@@ -11652,6 +12027,7 @@ export namespace Prisma {
   export type ServiceOrderUncheckedUpdateManyWithoutProductInput = {
     id?: IntFieldUpdateOperationsInput | number
     location_id?: IntFieldUpdateOperationsInput | number
+    destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     order_id?: IntFieldUpdateOperationsInput | number
     company_id?: IntFieldUpdateOperationsInput | number
   }
@@ -11664,6 +12040,7 @@ export namespace Prisma {
   export type ServiceOrderCreateManyCompanyInput = {
     id?: number
     location_id: number
+    destination_id?: number | null
     order_id: number
     product_id: string
   }
@@ -11687,6 +12064,7 @@ export namespace Prisma {
 
   export type ServiceOrderUpdateWithoutCompanyInput = {
     location?: LocationUpdateOneRequiredWithoutServiceOrdersNestedInput
+    destinationLocation?: LocationUpdateOneWithoutDestinationOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutServiceOrdersNestedInput
     order?: OrderUpdateOneRequiredWithoutServiceOrdersNestedInput
   }
@@ -11694,6 +12072,7 @@ export namespace Prisma {
   export type ServiceOrderUncheckedUpdateWithoutCompanyInput = {
     id?: IntFieldUpdateOperationsInput | number
     location_id?: IntFieldUpdateOperationsInput | number
+    destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
   }
@@ -11701,6 +12080,7 @@ export namespace Prisma {
   export type ServiceOrderUncheckedUpdateManyWithoutCompanyInput = {
     id?: IntFieldUpdateOperationsInput | number
     location_id?: IntFieldUpdateOperationsInput | number
+    destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
   }

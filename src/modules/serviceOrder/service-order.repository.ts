@@ -100,4 +100,11 @@ export class ServiceOrderRepository {
       })
     }
 
+    async updateDestination(serviceOrderId: number, locationId: number) {
+      return await this.prisma.serviceOrder.update({
+        where: { id: serviceOrderId },
+        data: { destination_id: locationId }
+      })
+    }
+
 }

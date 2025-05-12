@@ -35,8 +35,9 @@ model Location {
   id   Int    @id @default(autoincrement())
   name String @unique
 
-  users         UserLocation[]
-  serviceOrders ServiceOrder[]
+  users             UserLocation[]
+  serviceOrders     ServiceOrder[] @relation("ServiceOrderLocation")
+  destinationOrders ServiceOrder[] @relation("ServiceOrderDestination")
 
   @@map("tb_location")
 }
@@ -53,16 +54,18 @@ model UserLocation {
 }
 
 model ServiceOrder {
-  id          Int    @id @default(autoincrement())
-  location_id Int
-  order_id    Int
-  product_id  String
-  company_id  Int
+  id             Int    @id @default(autoincrement())
+  location_id    Int
+  destination_id Int?
+  order_id       Int
+  product_id     String
+  company_id     Int
 
-  location Location @relation(fields: [location_id], references: [id])
-  product  Product  @relation(fields: [product_id], references: [id])
-  order    Order    @relation(fields: [order_id, company_id], references: [id, company_id])
-  company  Company  @relation(fields: [company_id], references: [id])
+  location            Location  @relation("ServiceOrderLocation", fields: [location_id], references: [id])
+  destinationLocation Location? @relation("ServiceOrderDestination", fields: [destination_id], references: [id])
+  product             Product   @relation(fields: [product_id], references: [id])
+  order               Order     @relation(fields: [order_id, company_id], references: [id, company_id])
+  company             Company   @relation(fields: [company_id], references: [id])
 
   @@map("tb_service_order")
 }

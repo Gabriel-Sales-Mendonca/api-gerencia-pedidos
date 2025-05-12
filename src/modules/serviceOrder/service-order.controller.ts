@@ -31,4 +31,12 @@ export class ServiceOrderController {
         return await this.serviceOrderService.updateLocation(serviceOrderId, locationId)
     }
 
+    @Patch('/update-destination/:id')
+    async updateDestination(
+        @Param('id', ParseIntPipe) serviceOrderId: number,
+        @Query('location_id', ParseIntPipe) location_id: number
+    ) {
+        return await this.serviceOrderService.updateDestination(serviceOrderId, location_id)
+    }
+
 }

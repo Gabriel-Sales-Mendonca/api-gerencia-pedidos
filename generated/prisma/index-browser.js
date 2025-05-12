@@ -141,6 +141,7 @@ exports.Prisma.UserLocationScalarFieldEnum = {
 exports.Prisma.ServiceOrderScalarFieldEnum = {
   id: 'id',
   location_id: 'location_id',
+  destination_id: 'destination_id',
   order_id: 'order_id',
   product_id: 'product_id',
   company_id: 'company_id'
