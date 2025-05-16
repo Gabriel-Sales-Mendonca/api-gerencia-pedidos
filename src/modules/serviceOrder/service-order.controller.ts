@@ -27,9 +27,10 @@ export class ServiceOrderController {
     @Patch('/update-location/:id')
     async updateLocation(
         @Param('id', ParseIntPipe) serviceOrderId: number,
-        @Query('location_id', ParseIntPipe) locationId: number
+        @Request() req
     ) {
-        return await this.serviceOrderService.updateLocation(serviceOrderId, locationId)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        return await this.serviceOrderService.updateLocation(req.user.sub, serviceOrderId)
     }
 
     @Patch('/update-destination/:id')

@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from "@nestjs/common";
 import { ServiceOrderRepository } from "./service-order.repository";
 import { ServiceOrderRequestDTO } from "./dto/service-order-request.dto";
 import { UsersService } from "../users/users.service";
@@ -24,14 +24,23 @@ export class ServiceOrderService {
         return await this.serviceOrderRepository.findDetailsByOrderAndCompany(orderId, companyId)
     }
 
-    async updateLocation(serviceOrderId: number, locationId: number) {
+    async updateLocation(userEmail: string, serviceOrderId: number) {
         const serviceOrder = await this.serviceOrderRepository.findById(serviceOrderId)
 
         if (serviceOrder == null) {
             throw new NotFoundException("Ordem de serviço não encontrada, id: " + serviceOrderId)
         }
 
-        return await this.serviceOrderRepository.updateLocation(serviceOrderId, locationId)
+        if (serviceOrder.destination_id == null) {
+            throw new BadRequestException("A localização não pode ser atualizada pois é necessário informar o destino anteriormente")
+        }
+
+        const user = await this.userService.findByEmail(userEmail)
+        if (!user) throw new NotFoundException("Usuário não encontrado!")
+
+        await this.fetchUserLocations(user.id, serviceOrder.destination_id)
+
+        return await this.serviceOrderRepository.updateLocation(serviceOrderId, serviceOrder.destination_id)
     }
 
     async updateDestination(userEmail: string, serviceOrderId: number, locationId: number) {
@@ -44,12 +53,16 @@ export class ServiceOrderService {
         const user = await this.userService.findByEmail(userEmail)
         if (!user) throw new NotFoundException("Usuário não encontrado!")
 
-        const locations = await this.serviceOrderRepository.fetchUserLocations(user.id)
-        
-        const hasAccess= locations.some(location => location.location_id == locationId)
-        if (!hasAccess) throw new ForbiddenException("Usuário não tem acesso à localização destino.")
+        await this.fetchUserLocations(user.id, locationId)
 
         return await this.serviceOrderRepository.updateDestination(serviceOrderId, locationId)
+    }
+
+    async fetchUserLocations(userId: number, locationId: number) {
+        const locations = await this.serviceOrderRepository.fetchUserLocations(userId)
+
+        const hasAccess= locations.some(location => location.location_id == locationId)
+        if (!hasAccess) throw new ForbiddenException("Usuário não tem acesso à localização do destino.")
     }
 
 }

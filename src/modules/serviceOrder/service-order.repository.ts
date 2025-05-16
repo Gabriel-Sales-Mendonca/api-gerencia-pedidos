@@ -88,7 +88,11 @@ export class ServiceOrderRepository {
               company_id: Number(companyId)
             },
             include: {
-              location: true
+              location: true,
+              destinationLocation: true
+            },
+            orderBy: {
+              product_id: "asc"
             }
         })
     }
@@ -96,7 +100,10 @@ export class ServiceOrderRepository {
     async updateLocation(serviceOrderId: number, locationId: number) {
       return await this.prisma.serviceOrder.update({
         where: { id: serviceOrderId },
-        data: { location_id: locationId }
+        data: { 
+          location_id: locationId,
+          destination_id: null
+        }
       })
     }
 
