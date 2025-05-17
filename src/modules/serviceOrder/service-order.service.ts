@@ -53,7 +53,7 @@ export class ServiceOrderService {
         const user = await this.userService.findByEmail(userEmail)
         if (!user) throw new NotFoundException("Usuário não encontrado!")
 
-        await this.fetchUserLocations(user.id, locationId)
+        await this.fetchUserLocations(user.id, serviceOrder.location_id)
 
         return await this.serviceOrderRepository.updateDestination(serviceOrderId, locationId)
     }
@@ -62,7 +62,7 @@ export class ServiceOrderService {
         const locations = await this.serviceOrderRepository.fetchUserLocations(userId)
 
         const hasAccess= locations.some(location => location.location_id == locationId)
-        if (!hasAccess) throw new ForbiddenException("Usuário não tem acesso à localização do destino.")
+        if (!hasAccess) throw new ForbiddenException("Usuário não tem acesso à essa localização.")
     }
 
     async updateLocationDeliveryDate(serviceOrderId: number, locationDeliveryDate: Date) {
