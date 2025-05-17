@@ -4934,6 +4934,8 @@ export namespace Prisma {
     order_id: number | null
     product_id: string | null
     company_id: number | null
+    location_start_date: Date | null
+    location_delivery_date: Date | null
   }
 
   export type ServiceOrderMaxAggregateOutputType = {
@@ -4943,6 +4945,8 @@ export namespace Prisma {
     order_id: number | null
     product_id: string | null
     company_id: number | null
+    location_start_date: Date | null
+    location_delivery_date: Date | null
   }
 
   export type ServiceOrderCountAggregateOutputType = {
@@ -4952,6 +4956,8 @@ export namespace Prisma {
     order_id: number
     product_id: number
     company_id: number
+    location_start_date: number
+    location_delivery_date: number
     _all: number
   }
 
@@ -4979,6 +4985,8 @@ export namespace Prisma {
     order_id?: true
     product_id?: true
     company_id?: true
+    location_start_date?: true
+    location_delivery_date?: true
   }
 
   export type ServiceOrderMaxAggregateInputType = {
@@ -4988,6 +4996,8 @@ export namespace Prisma {
     order_id?: true
     product_id?: true
     company_id?: true
+    location_start_date?: true
+    location_delivery_date?: true
   }
 
   export type ServiceOrderCountAggregateInputType = {
@@ -4997,6 +5007,8 @@ export namespace Prisma {
     order_id?: true
     product_id?: true
     company_id?: true
+    location_start_date?: true
+    location_delivery_date?: true
     _all?: true
   }
 
@@ -5093,6 +5105,8 @@ export namespace Prisma {
     order_id: number
     product_id: string
     company_id: number
+    location_start_date: Date | null
+    location_delivery_date: Date | null
     _count: ServiceOrderCountAggregateOutputType | null
     _avg: ServiceOrderAvgAggregateOutputType | null
     _sum: ServiceOrderSumAggregateOutputType | null
@@ -5121,6 +5135,8 @@ export namespace Prisma {
     order_id?: boolean
     product_id?: boolean
     company_id?: boolean
+    location_start_date?: boolean
+    location_delivery_date?: boolean
     location?: boolean | LocationDefaultArgs<ExtArgs>
     destinationLocation?: boolean | ServiceOrder$destinationLocationArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
@@ -5135,6 +5151,8 @@ export namespace Prisma {
     order_id?: boolean
     product_id?: boolean
     company_id?: boolean
+    location_start_date?: boolean
+    location_delivery_date?: boolean
     location?: boolean | LocationDefaultArgs<ExtArgs>
     destinationLocation?: boolean | ServiceOrder$destinationLocationArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
@@ -5149,6 +5167,8 @@ export namespace Prisma {
     order_id?: boolean
     product_id?: boolean
     company_id?: boolean
+    location_start_date?: boolean
+    location_delivery_date?: boolean
     location?: boolean | LocationDefaultArgs<ExtArgs>
     destinationLocation?: boolean | ServiceOrder$destinationLocationArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
@@ -5163,9 +5183,11 @@ export namespace Prisma {
     order_id?: boolean
     product_id?: boolean
     company_id?: boolean
+    location_start_date?: boolean
+    location_delivery_date?: boolean
   }
 
-  export type ServiceOrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "location_id" | "destination_id" | "order_id" | "product_id" | "company_id", ExtArgs["result"]["serviceOrder"]>
+  export type ServiceOrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "location_id" | "destination_id" | "order_id" | "product_id" | "company_id" | "location_start_date" | "location_delivery_date", ExtArgs["result"]["serviceOrder"]>
   export type ServiceOrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     location?: boolean | LocationDefaultArgs<ExtArgs>
     destinationLocation?: boolean | ServiceOrder$destinationLocationArgs<ExtArgs>
@@ -5204,6 +5226,8 @@ export namespace Prisma {
       order_id: number
       product_id: string
       company_id: number
+      location_start_date: Date | null
+      location_delivery_date: Date | null
     }, ExtArgs["result"]["serviceOrder"]>
     composites: {}
   }
@@ -5638,6 +5662,8 @@ export namespace Prisma {
     readonly order_id: FieldRef<"ServiceOrder", 'Int'>
     readonly product_id: FieldRef<"ServiceOrder", 'String'>
     readonly company_id: FieldRef<"ServiceOrder", 'Int'>
+    readonly location_start_date: FieldRef<"ServiceOrder", 'DateTime'>
+    readonly location_delivery_date: FieldRef<"ServiceOrder", 'DateTime'>
   }
     
 
@@ -9342,7 +9368,9 @@ export namespace Prisma {
     destination_id: 'destination_id',
     order_id: 'order_id',
     product_id: 'product_id',
-    company_id: 'company_id'
+    company_id: 'company_id',
+    location_start_date: 'location_start_date',
+    location_delivery_date: 'location_delivery_date'
   };
 
   export type ServiceOrderScalarFieldEnum = (typeof ServiceOrderScalarFieldEnum)[keyof typeof ServiceOrderScalarFieldEnum]
@@ -9636,6 +9664,8 @@ export namespace Prisma {
     order_id?: IntFilter<"ServiceOrder"> | number
     product_id?: StringFilter<"ServiceOrder"> | string
     company_id?: IntFilter<"ServiceOrder"> | number
+    location_start_date?: DateTimeNullableFilter<"ServiceOrder"> | Date | string | null
+    location_delivery_date?: DateTimeNullableFilter<"ServiceOrder"> | Date | string | null
     location?: XOR<LocationScalarRelationFilter, LocationWhereInput>
     destinationLocation?: XOR<LocationNullableScalarRelationFilter, LocationWhereInput> | null
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
@@ -9650,6 +9680,8 @@ export namespace Prisma {
     order_id?: SortOrder
     product_id?: SortOrder
     company_id?: SortOrder
+    location_start_date?: SortOrderInput | SortOrder
+    location_delivery_date?: SortOrderInput | SortOrder
     location?: LocationOrderByWithRelationInput
     destinationLocation?: LocationOrderByWithRelationInput
     product?: ProductOrderByWithRelationInput
@@ -9667,6 +9699,8 @@ export namespace Prisma {
     order_id?: IntFilter<"ServiceOrder"> | number
     product_id?: StringFilter<"ServiceOrder"> | string
     company_id?: IntFilter<"ServiceOrder"> | number
+    location_start_date?: DateTimeNullableFilter<"ServiceOrder"> | Date | string | null
+    location_delivery_date?: DateTimeNullableFilter<"ServiceOrder"> | Date | string | null
     location?: XOR<LocationScalarRelationFilter, LocationWhereInput>
     destinationLocation?: XOR<LocationNullableScalarRelationFilter, LocationWhereInput> | null
     product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
@@ -9681,6 +9715,8 @@ export namespace Prisma {
     order_id?: SortOrder
     product_id?: SortOrder
     company_id?: SortOrder
+    location_start_date?: SortOrderInput | SortOrder
+    location_delivery_date?: SortOrderInput | SortOrder
     _count?: ServiceOrderCountOrderByAggregateInput
     _avg?: ServiceOrderAvgOrderByAggregateInput
     _max?: ServiceOrderMaxOrderByAggregateInput
@@ -9698,6 +9734,8 @@ export namespace Prisma {
     order_id?: IntWithAggregatesFilter<"ServiceOrder"> | number
     product_id?: StringWithAggregatesFilter<"ServiceOrder"> | string
     company_id?: IntWithAggregatesFilter<"ServiceOrder"> | number
+    location_start_date?: DateTimeNullableWithAggregatesFilter<"ServiceOrder"> | Date | string | null
+    location_delivery_date?: DateTimeNullableWithAggregatesFilter<"ServiceOrder"> | Date | string | null
   }
 
   export type OrderWhereInput = {
@@ -9972,6 +10010,8 @@ export namespace Prisma {
   }
 
   export type ServiceOrderCreateInput = {
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
     location: LocationCreateNestedOneWithoutServiceOrdersInput
     destinationLocation?: LocationCreateNestedOneWithoutDestinationOrdersInput
     product: ProductCreateNestedOneWithoutServiceOrdersInput
@@ -9986,9 +10026,13 @@ export namespace Prisma {
     order_id: number
     product_id: string
     company_id: number
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
   }
 
   export type ServiceOrderUpdateInput = {
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: LocationUpdateOneRequiredWithoutServiceOrdersNestedInput
     destinationLocation?: LocationUpdateOneWithoutDestinationOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutServiceOrdersNestedInput
@@ -10003,6 +10047,8 @@ export namespace Prisma {
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
     company_id?: IntFieldUpdateOperationsInput | number
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServiceOrderCreateManyInput = {
@@ -10012,10 +10058,13 @@ export namespace Prisma {
     order_id: number
     product_id: string
     company_id: number
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
   }
 
   export type ServiceOrderUpdateManyMutationInput = {
-
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServiceOrderUncheckedUpdateManyInput = {
@@ -10025,6 +10074,8 @@ export namespace Prisma {
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
     company_id?: IntFieldUpdateOperationsInput | number
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type OrderCreateInput = {
@@ -10343,6 +10394,17 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type LocationNullableScalarRelationFilter = {
     is?: LocationWhereInput | null
     isNot?: LocationWhereInput | null
@@ -10375,6 +10437,8 @@ export namespace Prisma {
     order_id?: SortOrder
     product_id?: SortOrder
     company_id?: SortOrder
+    location_start_date?: SortOrder
+    location_delivery_date?: SortOrder
   }
 
   export type ServiceOrderAvgOrderByAggregateInput = {
@@ -10392,6 +10456,8 @@ export namespace Prisma {
     order_id?: SortOrder
     product_id?: SortOrder
     company_id?: SortOrder
+    location_start_date?: SortOrder
+    location_delivery_date?: SortOrder
   }
 
   export type ServiceOrderMinOrderByAggregateInput = {
@@ -10401,6 +10467,8 @@ export namespace Prisma {
     order_id?: SortOrder
     product_id?: SortOrder
     company_id?: SortOrder
+    location_start_date?: SortOrder
+    location_delivery_date?: SortOrder
   }
 
   export type ServiceOrderSumOrderByAggregateInput = {
@@ -10427,7 +10495,7 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -10435,7 +10503,10 @@ export namespace Prisma {
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type OrderIdCompany_idCompoundUniqueInput = {
@@ -10469,20 +10540,6 @@ export namespace Prisma {
   export type OrderSumOrderByAggregateInput = {
     id?: SortOrder
     company_id?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -10813,6 +10870,10 @@ export namespace Prisma {
     connect?: CompanyWhereUniqueInput
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type LocationUpdateOneRequiredWithoutServiceOrdersNestedInput = {
     create?: XOR<LocationCreateWithoutServiceOrdersInput, LocationUncheckedCreateWithoutServiceOrdersInput>
     connectOrCreate?: LocationCreateOrConnectWithoutServiceOrdersInput
@@ -10881,10 +10942,6 @@ export namespace Prisma {
     connectOrCreate?: ServiceOrderCreateOrConnectWithoutOrderInput | ServiceOrderCreateOrConnectWithoutOrderInput[]
     createMany?: ServiceOrderCreateManyOrderInputEnvelope
     connect?: ServiceOrderWhereUniqueInput | ServiceOrderWhereUniqueInput[]
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type CompanyUpdateOneRequiredWithoutOrdersNestedInput = {
@@ -11133,6 +11190,17 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -11158,17 +11226,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11277,6 +11334,8 @@ export namespace Prisma {
   }
 
   export type ServiceOrderCreateWithoutLocationInput = {
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
     destinationLocation?: LocationCreateNestedOneWithoutDestinationOrdersInput
     product: ProductCreateNestedOneWithoutServiceOrdersInput
     order: OrderCreateNestedOneWithoutServiceOrdersInput
@@ -11289,6 +11348,8 @@ export namespace Prisma {
     order_id: number
     product_id: string
     company_id: number
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
   }
 
   export type ServiceOrderCreateOrConnectWithoutLocationInput = {
@@ -11302,6 +11363,8 @@ export namespace Prisma {
   }
 
   export type ServiceOrderCreateWithoutDestinationLocationInput = {
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
     location: LocationCreateNestedOneWithoutServiceOrdersInput
     product: ProductCreateNestedOneWithoutServiceOrdersInput
     order: OrderCreateNestedOneWithoutServiceOrdersInput
@@ -11314,6 +11377,8 @@ export namespace Prisma {
     order_id: number
     product_id: string
     company_id: number
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
   }
 
   export type ServiceOrderCreateOrConnectWithoutDestinationLocationInput = {
@@ -11368,6 +11433,8 @@ export namespace Prisma {
     order_id?: IntFilter<"ServiceOrder"> | number
     product_id?: StringFilter<"ServiceOrder"> | string
     company_id?: IntFilter<"ServiceOrder"> | number
+    location_start_date?: DateTimeNullableFilter<"ServiceOrder"> | Date | string | null
+    location_delivery_date?: DateTimeNullableFilter<"ServiceOrder"> | Date | string | null
   }
 
   export type ServiceOrderUpsertWithWhereUniqueWithoutDestinationLocationInput = {
@@ -11689,6 +11756,8 @@ export namespace Prisma {
   }
 
   export type ServiceOrderCreateWithoutOrderInput = {
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
     location: LocationCreateNestedOneWithoutServiceOrdersInput
     destinationLocation?: LocationCreateNestedOneWithoutDestinationOrdersInput
     product: ProductCreateNestedOneWithoutServiceOrdersInput
@@ -11700,6 +11769,8 @@ export namespace Prisma {
     location_id: number
     destination_id?: number | null
     product_id: string
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
   }
 
   export type ServiceOrderCreateOrConnectWithoutOrderInput = {
@@ -11751,6 +11822,8 @@ export namespace Prisma {
   }
 
   export type ServiceOrderCreateWithoutProductInput = {
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
     location: LocationCreateNestedOneWithoutServiceOrdersInput
     destinationLocation?: LocationCreateNestedOneWithoutDestinationOrdersInput
     order: OrderCreateNestedOneWithoutServiceOrdersInput
@@ -11763,6 +11836,8 @@ export namespace Prisma {
     destination_id?: number | null
     order_id: number
     company_id: number
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
   }
 
   export type ServiceOrderCreateOrConnectWithoutProductInput = {
@@ -11814,6 +11889,8 @@ export namespace Prisma {
   }
 
   export type ServiceOrderCreateWithoutCompanyInput = {
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
     location: LocationCreateNestedOneWithoutServiceOrdersInput
     destinationLocation?: LocationCreateNestedOneWithoutDestinationOrdersInput
     product: ProductCreateNestedOneWithoutServiceOrdersInput
@@ -11826,6 +11903,8 @@ export namespace Prisma {
     destination_id?: number | null
     order_id: number
     product_id: string
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
   }
 
   export type ServiceOrderCreateOrConnectWithoutCompanyInput = {
@@ -11905,6 +11984,8 @@ export namespace Prisma {
     order_id: number
     product_id: string
     company_id: number
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
   }
 
   export type ServiceOrderCreateManyDestinationLocationInput = {
@@ -11913,6 +11994,8 @@ export namespace Prisma {
     order_id: number
     product_id: string
     company_id: number
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
   }
 
   export type UserLocationUpdateWithoutLocationInput = {
@@ -11928,6 +12011,8 @@ export namespace Prisma {
   }
 
   export type ServiceOrderUpdateWithoutLocationInput = {
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     destinationLocation?: LocationUpdateOneWithoutDestinationOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutServiceOrdersNestedInput
     order?: OrderUpdateOneRequiredWithoutServiceOrdersNestedInput
@@ -11940,6 +12025,8 @@ export namespace Prisma {
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
     company_id?: IntFieldUpdateOperationsInput | number
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServiceOrderUncheckedUpdateManyWithoutLocationInput = {
@@ -11948,9 +12035,13 @@ export namespace Prisma {
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
     company_id?: IntFieldUpdateOperationsInput | number
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServiceOrderUpdateWithoutDestinationLocationInput = {
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: LocationUpdateOneRequiredWithoutServiceOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutServiceOrdersNestedInput
     order?: OrderUpdateOneRequiredWithoutServiceOrdersNestedInput
@@ -11963,6 +12054,8 @@ export namespace Prisma {
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
     company_id?: IntFieldUpdateOperationsInput | number
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServiceOrderUncheckedUpdateManyWithoutDestinationLocationInput = {
@@ -11971,6 +12064,8 @@ export namespace Prisma {
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
     company_id?: IntFieldUpdateOperationsInput | number
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServiceOrderCreateManyOrderInput = {
@@ -11978,9 +12073,13 @@ export namespace Prisma {
     location_id: number
     destination_id?: number | null
     product_id: string
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
   }
 
   export type ServiceOrderUpdateWithoutOrderInput = {
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: LocationUpdateOneRequiredWithoutServiceOrdersNestedInput
     destinationLocation?: LocationUpdateOneWithoutDestinationOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutServiceOrdersNestedInput
@@ -11992,6 +12091,8 @@ export namespace Prisma {
     location_id?: IntFieldUpdateOperationsInput | number
     destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     product_id?: StringFieldUpdateOperationsInput | string
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServiceOrderUncheckedUpdateManyWithoutOrderInput = {
@@ -11999,6 +12100,8 @@ export namespace Prisma {
     location_id?: IntFieldUpdateOperationsInput | number
     destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     product_id?: StringFieldUpdateOperationsInput | string
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServiceOrderCreateManyProductInput = {
@@ -12007,9 +12110,13 @@ export namespace Prisma {
     destination_id?: number | null
     order_id: number
     company_id: number
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
   }
 
   export type ServiceOrderUpdateWithoutProductInput = {
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: LocationUpdateOneRequiredWithoutServiceOrdersNestedInput
     destinationLocation?: LocationUpdateOneWithoutDestinationOrdersNestedInput
     order?: OrderUpdateOneRequiredWithoutServiceOrdersNestedInput
@@ -12022,6 +12129,8 @@ export namespace Prisma {
     destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     order_id?: IntFieldUpdateOperationsInput | number
     company_id?: IntFieldUpdateOperationsInput | number
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServiceOrderUncheckedUpdateManyWithoutProductInput = {
@@ -12030,6 +12139,8 @@ export namespace Prisma {
     destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     order_id?: IntFieldUpdateOperationsInput | number
     company_id?: IntFieldUpdateOperationsInput | number
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type OrderCreateManyCompanyInput = {
@@ -12043,6 +12154,8 @@ export namespace Prisma {
     destination_id?: number | null
     order_id: number
     product_id: string
+    location_start_date?: Date | string | null
+    location_delivery_date?: Date | string | null
   }
 
   export type OrderUpdateWithoutCompanyInput = {
@@ -12063,6 +12176,8 @@ export namespace Prisma {
   }
 
   export type ServiceOrderUpdateWithoutCompanyInput = {
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: LocationUpdateOneRequiredWithoutServiceOrdersNestedInput
     destinationLocation?: LocationUpdateOneWithoutDestinationOrdersNestedInput
     product?: ProductUpdateOneRequiredWithoutServiceOrdersNestedInput
@@ -12075,6 +12190,8 @@ export namespace Prisma {
     destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ServiceOrderUncheckedUpdateManyWithoutCompanyInput = {
@@ -12083,6 +12200,8 @@ export namespace Prisma {
     destination_id?: NullableIntFieldUpdateOperationsInput | number | null
     order_id?: IntFieldUpdateOperationsInput | number
     product_id?: StringFieldUpdateOperationsInput | string
+    location_start_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location_delivery_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 

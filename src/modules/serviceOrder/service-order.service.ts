@@ -65,4 +65,8 @@ export class ServiceOrderService {
         if (!hasAccess) throw new ForbiddenException("Usuário não tem acesso à localização do destino.")
     }
 
+    async updateLocationDeliveryDate(serviceOrderId: number, locationDeliveryDate: Date) {
+        return await this.serviceOrderRepository.updateLocationDeliveryDate(serviceOrderId, locationDeliveryDate)
+    }
+
 }

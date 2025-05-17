@@ -102,7 +102,8 @@ export class ServiceOrderRepository {
         where: { id: serviceOrderId },
         data: { 
           location_id: locationId,
-          destination_id: null
+          destination_id: null,
+          location_start_date: new Date()
         }
       })
     }
@@ -118,6 +119,17 @@ export class ServiceOrderRepository {
       return await this.prisma.userLocation.findMany({
         where: { user_id: userId },
         select: { location_id: true }
+      })
+    }
+
+    async updateLocationDeliveryDate(serviceOrderId: number, locationDeliveryDate: Date) {
+      return await this.prisma.serviceOrder.update({
+        where: {
+          id: serviceOrderId
+        },
+        data: {
+          location_delivery_date: locationDeliveryDate
+        }
       })
     }
 

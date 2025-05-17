@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Controller, Get, Param, ParseIntPipe, Patch, Post, Query, Request } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query, Request } from "@nestjs/common";
 import { ServiceOrderService } from "./service-order.service";
 
 @Controller('service-orders')
@@ -43,4 +43,17 @@ export class ServiceOrderController {
         return await this.serviceOrderService.updateDestination(req.user.sub, serviceOrderId, location_id)
     }
 
+    @Patch('/update-location-delivery-date/:id')
+    async updateLocationDeliveryDate(
+        @Param('id', ParseIntPipe) serviceOrderId: number,
+        @Body('locationDeliveryDate') dateString: string
+    ) {
+        const locationDeliveryDate = new Date(dateString)
+
+        if (isNaN(locationDeliveryDate.getTime())) {
+            throw new BadRequestException('Invalid date format');
+        }
+
+        return await this.serviceOrderService.updateLocationDeliveryDate(serviceOrderId, locationDeliveryDate)
+    }
 }

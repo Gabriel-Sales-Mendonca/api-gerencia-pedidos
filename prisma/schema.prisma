@@ -54,12 +54,14 @@ model UserLocation {
 }
 
 model ServiceOrder {
-  id             Int    @id @default(autoincrement())
-  location_id    Int
-  destination_id Int?
-  order_id       Int
-  product_id     String
-  company_id     Int
+  id                     Int       @id @default(autoincrement())
+  location_id            Int
+  destination_id         Int?
+  order_id               Int
+  product_id             String
+  company_id             Int
+  location_start_date    DateTime?
+  location_delivery_date DateTime?
 
   location            Location  @relation("ServiceOrderLocation", fields: [location_id], references: [id])
   destinationLocation Location? @relation("ServiceOrderDestination", fields: [destination_id], references: [id])
