@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsNotEmpty, Length, IsEnum } from 'class-validator';
+import { IsString, IsEmail, IsNotEmpty, Length, IsEnum, ArrayNotEmpty } from 'class-validator';
 
 import { UserRole } from '../../../../generated/prisma';
 
@@ -19,5 +19,6 @@ export class UserRequestDTO {
 
     @IsEnum(UserRole, { each: true })
     @IsNotEmpty()
+    @ArrayNotEmpty()
     roles: UserRole[];
 }

@@ -16,15 +16,19 @@ export class AuthService {
   async signIn(data: ILogin): Promise<{ access_token: string }> {
     const user = await this.usersService.findByEmail(data.email);
 
-    if (user?.password == undefined) {
-        throw new UnauthorizedException();
+    if (!user) {
+      throw new UnauthorizedException("Usuário não encontrado")
+    }
+
+    if (user.password == undefined) {
+      throw new UnauthorizedException("Senha incorreta");
     }
 
     if (compareSync(data.password, user.password) == false) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException("Senha incorreta");
     }
 
-    const payload = { sub: user.email, roles: user.roles };
+    const payload = { sub: user.id, roles: user.roles };
 
     return {
         access_token: await this.jwtService.signAsync(payload),
