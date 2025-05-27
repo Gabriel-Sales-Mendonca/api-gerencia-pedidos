@@ -4,17 +4,39 @@ import { UserRequestDTO } from './dto/user-request.dto';
 import { User } from 'generated/prisma';
 import { PrismaService } from 'src/database/prisma/prisma.service';
 import { UserEditRequestDTO } from './dto/user-edit-request.dto';
+import { UserFindAllResponseDTO } from './dto/user-find-all-response.dto';
 
 @Injectable()
 export class UsersRepository {
     constructor(private prisma: PrismaService) { }
 
-    async findAll(): Promise<User[]> {
-        return await this.prisma.user.findMany({
-            orderBy: {
-                id: 'asc'
-            }
-        })
+    async findAll(page: number, limit: number): Promise<UserFindAllResponseDTO> {
+
+        const skip = (page - 1) * limit
+
+        const [ users, total ] = await this.prisma.$transaction([
+            this.prisma.user.findMany({
+                skip,
+                take: limit,
+                orderBy: {
+                    id: 'asc'
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    roles: true
+                }
+            }),
+            this.prisma.user.count()
+        ])
+
+        return {
+            users,
+            total,
+            page,
+            lastPage: Math.ceil(total / limit)
+        }
     }
 
     async findByEmail(emailRequest: string): Promise<User | null> {

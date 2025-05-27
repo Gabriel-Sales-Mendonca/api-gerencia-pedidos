@@ -1,5 +1,4 @@
 import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { plainToInstance } from 'class-transformer'
 import { compareSync, hash } from 'bcrypt';
 
 import { UserRequestDTO } from './dto/user-request.dto';
@@ -9,15 +8,21 @@ import { User } from 'generated/prisma';
 import { UserRelateToLocationDTO } from './dto/user-relate-to-location-request.dto';
 import { UserEditRequestDTO } from './dto/user-edit-request.dto';
 import { JwtPayload } from 'src/interfaces/authenticated-request.interface';
+import { UserFindAllResponseDTO } from './dto/user-find-all-response.dto';
+import { PaginationDTO } from 'src/common/dto/pagination.dto';
 
 @Injectable()
 export class UsersService {
     constructor(private usersRepository: UsersRepository) { }
 
-    async findAll(): Promise<UserResponseDTO[]> {
-        const users = await this.usersRepository.findAll();
+    async findAll(pagination: PaginationDTO): Promise<UserFindAllResponseDTO> {
 
-        return plainToInstance(UserResponseDTO, users, { excludeExtraneousValues: true })
+        const page = pagination.page ?? 1;
+        const limit = pagination.limit ?? 10;
+
+        const data = await this.usersRepository.findAll(page, limit);
+
+        return data
     }
 
     async findByEmail(email: string): Promise<User | null> {

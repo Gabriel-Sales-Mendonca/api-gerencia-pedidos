@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, Patch, Delete, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseIntPipe, Patch, Delete, Req, Query } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 import { UserRequestDTO } from './dto/user-request.dto';
@@ -6,8 +6,9 @@ import { UserResponseDTO } from './dto/user-response.dto';
 import { Roles } from 'src/decorators/roles.decorator';
 import { UserEditRequestDTO } from './dto/user-edit-request.dto';
 import { UserEditPasswordRequestDTO } from './dto/user-edit-password-request.dto';
-import { Request } from 'express';
 import { AuthenticatedRequest } from '../../interfaces/authenticated-request.interface'
+import { UserFindAllResponseDTO } from './dto/user-find-all-response.dto';
+import { PaginationDTO } from 'src/common/dto/pagination.dto';
 
 interface IEmailRequest {
     email: string
@@ -19,8 +20,8 @@ export class UsersController {
 
     @Roles('ADMIN', 'USER')
     @Get()
-    async findAll(): Promise<UserResponseDTO[]> {
-        return await this.usersService.findAll();
+    async findAll(@Query() pagination: PaginationDTO): Promise<UserFindAllResponseDTO> {
+        return await this.usersService.findAll(pagination);
     }
 
     @Get("email")
