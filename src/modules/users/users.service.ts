@@ -8,10 +8,11 @@ import { UserResponseDTO } from './dto/user-response.dto';
 import { User } from 'generated/prisma';
 import { UserRelateToLocationDTO } from './dto/user-relate-to-location-request.dto';
 import { UserEditRequestDTO } from './dto/user-edit-request.dto';
+import { JwtPayload } from 'src/interfaces/authenticated-request.interface';
 
 @Injectable()
 export class UsersService {
-    constructor(private usersRepository: UsersRepository) {}
+    constructor(private usersRepository: UsersRepository) { }
 
     async findAll(): Promise<UserResponseDTO[]> {
         const users = await this.usersRepository.findAll();
@@ -77,20 +78,34 @@ export class UsersService {
         return await this.usersRepository.delete(userId)
     }
 
-    async updatePassword(userId: number, newPassword: string, oldPassword: string) {
-
-        if (oldPassword == undefined) {
-            throw new UnauthorizedException("Informe a senha antiga");
-        }
-
-        const user = await this.findById(userId)
-
-        if (compareSync(oldPassword, user.password) == false) {
-            throw new UnauthorizedException("Senha antiga incorreta");
-        }
+    async updatePassword(payload: JwtPayload, userId: number, newPassword: string, oldPassword: string) {
 
         const hashedPassword = await hash(newPassword, 10);
 
-        return await this.usersRepository.updatePassword(userId, hashedPassword)
+        if (!payload.roles.includes('ADMIN')) {
+
+            if (oldPassword == undefined) {
+                throw new UnauthorizedException("Informe a senha antiga");
+            }
+
+            const payloadUserId = parseInt(payload.sub)
+
+            if (payloadUserId !== userId) {
+                throw new UnauthorizedException("Somente um ADMIN pode atualizar a senha de outro usuário")
+            }
+
+            const payloadUser = await this.findById(payloadUserId)
+
+            if (compareSync(oldPassword, payloadUser.password) == false) {
+                throw new UnauthorizedException("Senha antiga incorreta");
+            }
+
+            await this.usersRepository.updatePassword(payloadUser.id, hashedPassword)
+
+        }
+
+        await this.findById(userId)
+
+        await this.usersRepository.updatePassword(userId, hashedPassword)
     }
 }

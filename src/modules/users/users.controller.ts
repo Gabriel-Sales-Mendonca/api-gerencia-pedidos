@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseIntPipe, Patch, Delete, Req } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 import { UserRequestDTO } from './dto/user-request.dto';
@@ -6,6 +6,8 @@ import { UserResponseDTO } from './dto/user-response.dto';
 import { Roles } from 'src/decorators/roles.decorator';
 import { UserEditRequestDTO } from './dto/user-edit-request.dto';
 import { UserEditPasswordRequestDTO } from './dto/user-edit-password-request.dto';
+import { Request } from 'express';
+import { AuthenticatedRequest } from '../../interfaces/authenticated-request.interface'
 
 interface IEmailRequest {
     email: string
@@ -49,13 +51,15 @@ export class UsersController {
         return await this.usersService.delete(userId)
     }
 
-    @Roles('ADMIN')
+    @Roles('ADMIN', 'USER')
     @Patch("/update-password/:id")
     async updatePassword(
         @Param('id', ParseIntPipe) userId: number,
-        @Body() userEditPasswordRequestDTO: UserEditPasswordRequestDTO
+        @Body() userEditPasswordRequestDTO: UserEditPasswordRequestDTO,
+        @Req() request: AuthenticatedRequest
     ) {
-        return await this.usersService.updatePassword(
+        await this.usersService.updatePassword(
+            request.user,
             userId,
             userEditPasswordRequestDTO.newPassword,
             userEditPasswordRequestDTO.oldPassword

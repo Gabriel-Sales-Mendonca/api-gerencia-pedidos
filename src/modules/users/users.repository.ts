@@ -65,7 +65,7 @@ export class UsersRepository {
     }
 
     async updatePassword(userId: number, password: string) {
-        return await this.prisma.user.update({
+        await this.prisma.user.update({
             where: {
                 id: userId
             },
