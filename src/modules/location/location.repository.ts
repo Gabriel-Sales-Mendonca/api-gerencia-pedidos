@@ -69,4 +69,12 @@ export class LocationRepository {
             data: data
         })
     }
+
+    async delete(locationId: number) {
+        return await this.prisma.location.delete({
+            where: {
+                id: locationId
+            }
+        })
+    }
 }

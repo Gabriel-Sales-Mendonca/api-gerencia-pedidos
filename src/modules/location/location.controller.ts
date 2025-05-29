@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Query, Put, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, Put, Param, ParseIntPipe, Delete } from '@nestjs/common';
 import { LocationRequestDTO } from './dto/location-request.dto';
 import { LocationService } from './location.service';
 import { PaginationDTO } from 'src/common/dto/pagination.dto';
@@ -22,7 +22,11 @@ export class LocationController {
         @Param('id', ParseIntPipe) id: number,
         @Body() locationRequestDTO: LocationRequestDTO
     ) {
-        console.log("ok")
         return this.locationService.update(id, locationRequestDTO)
+    }
+
+    @Delete('/:id')
+    async delete(@Param('id', ParseIntPipe) id: number) {
+        await this.locationService.delete(id)
     }
 }

@@ -49,4 +49,10 @@ export class LocationService {
 
         return this.locationRepository.update(locationId, data)
     }
+
+    async delete(locationId: number) {
+        await this.findById(locationId)
+
+        return await this.locationRepository.delete(locationId)
+    }
 }
