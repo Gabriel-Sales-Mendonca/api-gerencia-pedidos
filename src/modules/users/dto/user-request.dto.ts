@@ -18,7 +18,7 @@ export class UserRequestDTO {
     password: string;
 
     @IsEnum(UserRole, { each: true })
-    @IsNotEmpty()
-    @ArrayNotEmpty()
+    @IsNotEmpty({ message: 'Tipo de usuário não enviado' })
+    @ArrayNotEmpty({ message: 'Tipo de usuário não enviado' })
     roles: UserRole[];
 }

@@ -3,13 +3,46 @@ import { Injectable } from '@nestjs/common';
 import { Location } from 'generated/prisma';
 import { PrismaService } from 'src/database/prisma/prisma.service';
 import { LocationRequestDTO } from './dto/location-request.dto';
+import { LocationFindAllResponseDTO } from './dto/location-find-all-response.dto';
 
 @Injectable()
 export class LocationRepository {
-    constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService) { }
 
-    async findAll() {
-        return await this.prisma.location.findMany();
+    async findAll(page: number, limit: number): Promise<LocationFindAllResponseDTO> {
+
+        const skip = (page - 1) * limit
+
+        const [locations, total] = await this.prisma.$transaction([
+            this.prisma.location.findMany({
+                skip,
+                take: limit,
+                orderBy: {
+                    id: 'asc'
+                },
+                select: {
+                    id: true,
+                    name: true
+                }
+            }),
+            this.prisma.location.count()
+        ])
+
+        return {
+            locations,
+            total,
+            page,
+            lastPage: Math.ceil(total / limit)
+        }
+
+    }
+
+    async findById(locationId: number): Promise<Location | null> {
+        return await this.prisma.location.findUnique({
+            where: {
+                id: locationId
+            }
+        })
     }
 
     async findByName(nameRequest: string): Promise<Location | null> {
@@ -26,5 +59,14 @@ export class LocationRepository {
                 name: location.name,
             }
         });
+    }
+
+    async update(locationId: number, data: LocationRequestDTO) {
+        return await this.prisma.location.update({
+            where: {
+                id: locationId
+            },
+            data: data
+        })
     }
 }

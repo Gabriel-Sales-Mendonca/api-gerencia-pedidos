@@ -20,9 +20,7 @@ export class UsersService {
         const page = pagination.page ?? 1;
         const limit = pagination.limit ?? 10;
 
-        const data = await this.usersRepository.findAll(page, limit);
-
-        return data
+        return await this.usersRepository.findAll(page, limit);
     }
 
     async findByEmail(email: string): Promise<User | null> {
