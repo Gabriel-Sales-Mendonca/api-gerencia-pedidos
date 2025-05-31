@@ -9806,12 +9806,12 @@ export namespace Prisma {
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    name?: string
     AND?: ProductWhereInput | ProductWhereInput[]
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
-    name?: StringNullableFilter<"Product"> | string | null
     serviceOrders?: ServiceOrderListRelationFilter
-  }, "id">
+  }, "id" | "name">
 
   export type ProductOrderByWithAggregationInput = {
     id?: SortOrder
@@ -9848,13 +9848,13 @@ export namespace Prisma {
 
   export type CompanyWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    name?: string
     AND?: CompanyWhereInput | CompanyWhereInput[]
     OR?: CompanyWhereInput[]
     NOT?: CompanyWhereInput | CompanyWhereInput[]
-    name?: StringFilter<"Company"> | string
     orders?: OrderListRelationFilter
     serviceOrders?: ServiceOrderListRelationFilter
-  }, "id">
+  }, "id" | "name">
 
   export type CompanyOrderByWithAggregationInput = {
     id?: SortOrder

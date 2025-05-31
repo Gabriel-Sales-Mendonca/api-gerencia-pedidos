@@ -84,7 +84,7 @@ model Order {
 
 model Product {
   id   String  @id
-  name String?
+  name String? @unique
 
   serviceOrders ServiceOrder[]
 
@@ -93,7 +93,7 @@ model Product {
 
 model Company {
   id            Int            @id @default(autoincrement())
-  name          String
+  name          String         @unique
   orders        Order[]
   serviceOrders ServiceOrder[]
 }
