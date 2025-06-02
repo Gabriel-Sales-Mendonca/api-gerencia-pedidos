@@ -2,6 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { ServiceOrderRepository } from "./service-order.repository";
 import { ServiceOrderRequestDTO } from "./dto/service-order-request.dto";
 import { UsersService } from "../users/users.service";
+import { PaginationDTO } from "src/common/dto/pagination.dto";
 
 @Injectable()
 export class ServiceOrderService {
@@ -16,8 +17,12 @@ export class ServiceOrderService {
         )
     }
 
-    async findAll() {
-        return await this.serviceOrderRepository.findAll()
+    async findAll(pagination: PaginationDTO) {
+
+        const page = pagination.page ?? 1;
+        const limit = pagination.limit ?? 10;
+        
+        return await this.serviceOrderRepository.findAll(page, limit)
     }
 
     async findDetailsByOrderAndCompany(orderId: number, companyId: number) {

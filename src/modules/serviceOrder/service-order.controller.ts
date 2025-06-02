@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { BadRequestException, Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query, Request } from "@nestjs/common";
 import { ServiceOrderService } from "./service-order.service";
+import { PaginationDTO } from "src/common/dto/pagination.dto";
 
 @Controller('service-orders')
 export class ServiceOrderController {
@@ -12,8 +13,8 @@ export class ServiceOrderController {
     }
 
     @Get()
-    async findAll() {
-        return await this.serviceOrderService.findAll()
+    async findAll(@Query() pagination: PaginationDTO) {
+        return await this.serviceOrderService.findAll(pagination)
     }
 
     @Get('/by-order/:id')
