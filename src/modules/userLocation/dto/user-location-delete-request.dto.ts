@@ -1,6 +1,6 @@
 import { IsInt, IsNotEmpty } from "class-validator"
 
-export class UserRelateToLocationDTO {
+export class UserLocationDeleteRequestDTO {
     @IsInt()
     @IsNotEmpty()
     userId: number

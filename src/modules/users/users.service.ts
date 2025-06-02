@@ -5,7 +5,6 @@ import { UserRequestDTO } from './dto/user-request.dto';
 import { UsersRepository } from './users.repository';
 import { UserResponseDTO } from './dto/user-response.dto';
 import { User } from 'generated/prisma';
-import { UserRelateToLocationDTO } from './dto/user-relate-to-location-request.dto';
 import { UserEditRequestDTO } from './dto/user-edit-request.dto';
 import { JwtPayload } from 'src/interfaces/authenticated-request.interface';
 import { UserFindAllResponseDTO } from './dto/user-find-all-response.dto';
@@ -67,10 +66,6 @@ export class UsersService {
         }
     }
 
-    async relateToLocation(data: UserRelateToLocationDTO) {
-        return await this.usersRepository.relateToLocation(data.userId, data.locationId)
-    }
-
     async update(userId: number, data: UserEditRequestDTO) {
         await this.findById(userId)
 
@@ -111,4 +106,5 @@ export class UsersService {
 
         await this.usersRepository.updatePassword(userId, hashedPassword)
     }
+
 }

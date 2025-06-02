@@ -10,10 +10,6 @@ import { AuthenticatedRequest } from '../../interfaces/authenticated-request.int
 import { UserFindAllResponseDTO } from './dto/user-find-all-response.dto';
 import { PaginationDTO } from 'src/common/dto/pagination.dto';
 
-interface IEmailRequest {
-    email: string
-}
-
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
@@ -25,7 +21,7 @@ export class UsersController {
     }
 
     @Get("email")
-    async findByEmail(@Body() req: IEmailRequest) {
+    async findByEmail(@Body() req: { email: string }) {
         return await this.usersService.findByEmail(req.email);
     }
 
@@ -67,12 +63,4 @@ export class UsersController {
         )
     }
 
-    @Roles('ADMIN')
-    @Patch("/edit-location/:id")
-    async relateToLocation(
-        @Param('id', ParseIntPipe) userId: number,
-        @Body('locationId') locationId: number
-    ) {
-        return await this.usersService.relateToLocation({ userId: userId, locationId: locationId })
-    }
 }

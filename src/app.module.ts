@@ -8,6 +8,7 @@ import { ServiceOrderModule } from './modules/serviceOrder/service-order.module'
 import { OrderModule } from './modules/order/order.module';
 import { ProductModule } from './modules/product/product.module';
 import { CompanyModule } from './modules/company/company.module';
+import { UserLocationModule } from './modules/userLocation/userLocation.module';
 
 // Controllers
 import { AppController } from './app.controller';
@@ -16,7 +17,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-    imports: [UsersModule, AuthModule, LocationModule, ServiceOrderModule, OrderModule, ProductModule, CompanyModule],
+    imports: [UsersModule, AuthModule, LocationModule, ServiceOrderModule, OrderModule, ProductModule, CompanyModule, UserLocationModule],
     controllers: [AppController],
     providers: [AppService],
     exports: [],

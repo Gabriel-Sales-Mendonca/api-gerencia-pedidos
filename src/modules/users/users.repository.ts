@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { UserRequestDTO } from './dto/user-request.dto';
 import { User } from 'generated/prisma';
@@ -14,7 +14,7 @@ export class UsersRepository {
 
         const skip = (page - 1) * limit
 
-        const [ users, total ] = await this.prisma.$transaction([
+        const [users, total] = await this.prisma.$transaction([
             this.prisma.user.findMany({
                 skip,
                 take: limit,
@@ -97,22 +97,4 @@ export class UsersRepository {
         })
     }
 
-    async relateToLocation(userId: number, locationId: number) {
-        const alreadyRelated = await this.prisma.userLocation.findUnique({
-            where: {
-                user_id_location_id: { user_id: userId, location_id: locationId }
-            }
-        })
-
-        if (alreadyRelated != null) {
-            throw new ConflictException("Relacionamento já existe!")
-        }
-
-        return await this.prisma.userLocation.create({
-            data: {
-                user_id: userId,
-                location_id: locationId
-            }
-        })
-    }
 }
