@@ -30,7 +30,7 @@ export class ServiceOrderController {
         @Request() req
     ) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        return await this.serviceOrderService.updateLocation(req.user.sub, serviceOrderId)
+        return await this.serviceOrderService.updateLocation(Number(req.user.sub), serviceOrderId)
     }
 
     @Patch('/update-destination/:id')
@@ -40,7 +40,7 @@ export class ServiceOrderController {
         @Request() req
     ) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        return await this.serviceOrderService.updateDestination(req.user.sub, serviceOrderId, location_id)
+        return await this.serviceOrderService.updateDestination(Number(req.user.sub), serviceOrderId, location_id)
     }
 
     @Patch('/update-location-delivery-date/:id')

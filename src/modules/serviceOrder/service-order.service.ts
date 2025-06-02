@@ -24,7 +24,7 @@ export class ServiceOrderService {
         return await this.serviceOrderRepository.findDetailsByOrderAndCompany(orderId, companyId)
     }
 
-    async updateLocation(userEmail: string, serviceOrderId: number) {
+    async updateLocation(userId: number, serviceOrderId: number) {
         const serviceOrder = await this.serviceOrderRepository.findById(serviceOrderId)
 
         if (serviceOrder == null) {
@@ -35,7 +35,7 @@ export class ServiceOrderService {
             throw new BadRequestException("A localização não pode ser atualizada pois é necessário informar o destino anteriormente")
         }
 
-        const user = await this.userService.findByEmail(userEmail)
+        const user = await this.userService.findById(userId)
         if (!user) throw new NotFoundException("Usuário não encontrado!")
 
         await this.fetchUserLocations(user.id, serviceOrder.destination_id)
@@ -43,14 +43,14 @@ export class ServiceOrderService {
         return await this.serviceOrderRepository.updateLocation(serviceOrderId, serviceOrder.destination_id)
     }
 
-    async updateDestination(userEmail: string, serviceOrderId: number, locationId: number) {
+    async updateDestination(userId: number, serviceOrderId: number, locationId: number) {
         const serviceOrder = await this.serviceOrderRepository.findById(serviceOrderId)
 
         if (serviceOrder == null) {
             throw new NotFoundException("Ordem de serviço não encontrada, id: " + serviceOrderId)
         }
 
-        const user = await this.userService.findByEmail(userEmail)
+        const user = await this.userService.findById(userId)
         if (!user) throw new NotFoundException("Usuário não encontrado!")
 
         await this.fetchUserLocations(user.id, serviceOrder.location_id)
