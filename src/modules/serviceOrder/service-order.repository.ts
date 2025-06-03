@@ -23,9 +23,15 @@ export class ServiceOrderRepository {
     })
   }
 
-  async findAll(page: number, limit: number) {
-    const skip = (page - 1) * limit; // 🧮 Cálculo do início da página
+  async findAll(
+    page: number,
+    limit: number,
+    sortBy: 'delivery_date' | 'company_name' | 'qtd_product' = 'delivery_date',
+    sortDirection: 'asc' | 'desc' = 'desc'
+  ) {
+    const skip = (page - 1) * limit;
 
+    // 1. Group by (sem ordenação ainda)
     const grouped = await this.prisma.serviceOrder.groupBy({
       by: ['order_id', 'company_id'],
       _count: {
@@ -33,11 +39,9 @@ export class ServiceOrderRepository {
       }
     });
 
-    const total = grouped.length; // 📊 Total de grupos antes da paginação
+    const total = grouped.length;
 
-    const paginatedGrouped = grouped.slice(skip, skip + limit); // 🧾 Paginação manual (slice)
-
-    const orderKeys = paginatedGrouped.map(item => ({
+    const orderKeys = grouped.map(item => ({
       id: item.order_id,
       company_id: item.company_id,
     }));
@@ -66,23 +70,70 @@ export class ServiceOrderRepository {
       orders.map(o => [`${o.id}-${o.company_id}`, o.delivery_date])
     );
 
-    const data = paginatedGrouped.map(item => {
+    // 2. Juntar dados em um array completo
+    const combined = grouped.map(item => {
       const deliveryDate = deliveryMap.get(`${item.order_id}-${item.company_id}`);
+      const companyName = companyMap.get(item.company_id);
 
       return {
         order_id: item.order_id,
         company_id: item.company_id,
-        company_name: companyMap.get(item.company_id),
-        delivery_date: deliveryDate
-          ? new Intl.DateTimeFormat('pt-BR').format(new Date(deliveryDate))
-          : null,
+        company_name: companyName || '',
+        delivery_date: deliveryDate ? new Date(deliveryDate) : null,
         qtd_product: item._count.product_id
       };
     });
 
+    // 3. Ordenação dinâmica
+    const sorted = combined.sort((a, b) => {
+      let aValue: string | number | Date | null;
+      let bValue: string | number | Date | null;
+
+      if (sortBy === 'delivery_date') {
+        aValue = a.delivery_date;
+        bValue = b.delivery_date;
+        const aTime = aValue ? new Date(aValue).getTime() : 0;
+        const bTime = bValue ? new Date(bValue).getTime() : 0;
+        return sortDirection === 'asc' ? aTime - bTime : bTime - aTime;
+      }
+
+      if (sortBy === 'company_name') {
+        aValue = a.company_name || '';
+        bValue = b.company_name || '';
+        return sortDirection === 'asc'
+          ? String(aValue).localeCompare(String(bValue))
+          : String(bValue).localeCompare(String(aValue));
+      }
+
+      if (sortBy === 'qtd_product') {
+        aValue = a.qtd_product;
+        bValue = b.qtd_product;
+        return sortDirection === 'asc'
+          ? (aValue) - (bValue)
+          : (bValue) - (aValue);
+      }
+
+      return 0;
+    });
+
+
+    // 4. Paginação
+    const paginated = sorted.slice(skip, skip + limit);
+
+    // 5. Formatação final
+    const data = paginated.map(item => ({
+      order_id: item.order_id,
+      company_id: item.company_id,
+      company_name: item.company_name,
+      delivery_date: item.delivery_date
+        ? new Intl.DateTimeFormat('pt-BR').format(item.delivery_date)
+        : null,
+      qtd_product: item.qtd_product
+    }));
+
     return {
-      data, // 🔁 Os dados paginados
-      total, // 📊 Total de registros
+      data,
+      total,
       page,
       lastPage: Math.ceil(total / limit)
     };
