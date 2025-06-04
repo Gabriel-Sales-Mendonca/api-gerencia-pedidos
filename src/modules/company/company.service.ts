@@ -30,6 +30,8 @@ export class CompanyService {
     }
 
     async insert(data: CompanyRequestDTO): Promise<CompanyResponseDTO> {
+        data.name = data.name.trim()
+
         const companyExist = await this.companyRepository.findByName(data.name)
 
         if (companyExist) {
@@ -40,6 +42,8 @@ export class CompanyService {
     }
 
     async update(companyId: number, data: CompanyRequestDTO): Promise<CompanyResponseDTO> {
+        data.name = data.name.trim()
+
         try {
             return await this.companyRepository.update(companyId, data)
         } catch (error) {

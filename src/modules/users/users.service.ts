@@ -23,7 +23,7 @@ export class UsersService {
     }
 
     async findByEmail(email: string): Promise<User | null> {
-        return await this.usersRepository.findByEmail(email);
+        return await this.usersRepository.findByEmail(email.trim());
     }
 
     async findById(userId: number): Promise<User> {
@@ -37,7 +37,7 @@ export class UsersService {
     }
 
     async insert(userRequestDTO: UserRequestDTO): Promise<UserResponseDTO> {
-        const hashedPassword = await hash(userRequestDTO.password, 10);
+        const hashedPassword = await hash(userRequestDTO.password.trim(), 10);
 
         if (userRequestDTO.roles.length == 0) {
             throw new BadRequestException('Tipo de usuário não enviado')
@@ -51,8 +51,8 @@ export class UsersService {
 
         const createdUser = await this.usersRepository.insert(
             {
-                name: userRequestDTO.name,
-                email: userRequestDTO.email,
+                name: userRequestDTO.name.trim(),
+                email: userRequestDTO.email.trim(),
                 password: hashedPassword,
                 roles: userRequestDTO.roles
             }
@@ -69,6 +69,8 @@ export class UsersService {
     async update(userId: number, data: UserEditRequestDTO) {
         await this.findById(userId)
 
+        data.name = data.name.trim()
+
         return await this.usersRepository.update(userId, data)
     }
 
@@ -78,7 +80,8 @@ export class UsersService {
 
     async updatePassword(payload: JwtPayload, userId: number, newPassword: string, oldPassword: string) {
 
-        const hashedPassword = await hash(newPassword, 10);
+        oldPassword = oldPassword.trim()
+        const hashedPassword = await hash(newPassword.trim(), 10);
 
         if (!payload.roles.includes('ADMIN')) {
 

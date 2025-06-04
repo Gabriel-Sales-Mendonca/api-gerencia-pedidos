@@ -27,14 +27,14 @@ export class LocationService {
     }
 
     async findByName(location: LocationRequestDTO) {
-        return await this.locationRepository.findByName(location.name)
+        return await this.locationRepository.findByName(location.name.trim())
     }
 
     async insert(locationRequestDTO: LocationRequestDTO) {
 
         const createdLocation = await this.locationRepository.insert(
             {
-                name: locationRequestDTO.name,
+                name: locationRequestDTO.name.trim(),
             }
         );
 
@@ -46,6 +46,8 @@ export class LocationService {
 
     async update(locationId: number, data: LocationRequestDTO) {
         await this.findById(locationId)
+
+        data.name = data.name.trim()
 
         return this.locationRepository.update(locationId, data)
     }

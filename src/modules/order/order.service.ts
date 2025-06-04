@@ -35,6 +35,8 @@ export class OrderService {
         for (const product of orderRequestDTO.products) {
             const productDB = await this.searchOrCreateProduct(product)
 
+            productDB.id = productDB.id.trim()
+
             const locationAlmoxarifado = await this.locationService.findByName({ name: 'almoxarifado' })
 
             if (!locationAlmoxarifado) {

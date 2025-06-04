@@ -12,7 +12,7 @@ export class ServiceOrderService {
         await this.serviceOrderRepository.insert(
             serviceOrderRequestDTO.location_id,
             serviceOrderRequestDTO.order_id,
-            serviceOrderRequestDTO.product_id,
+            serviceOrderRequestDTO.product_id.trim(),
             serviceOrderRequestDTO.company_id
         )
     }
