@@ -79,7 +79,8 @@ model Order {
   company       Company        @relation(fields: [company_id], references: [id])
   serviceOrders ServiceOrder[]
 
-  @@id([id, company_id]) // Chave composta!
+  @@id([id, company_id])
+  @@map("tb_order")
 }
 
 model Product {
@@ -96,4 +97,6 @@ model Company {
   name          String         @unique
   orders        Order[]
   serviceOrders ServiceOrder[]
+
+  @@map("tb_company")
 }
