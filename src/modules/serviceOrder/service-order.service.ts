@@ -29,6 +29,18 @@ export class ServiceOrderService {
         return await this.serviceOrderRepository.findDetailsByOrderAndCompany(orderId, companyId)
     }
 
+    async findByOrderIdAndCompanyId(orderId: number, companyId: number): Promise<number[]> {
+        const serviceOrdersIdsObject = await this.serviceOrderRepository.findByOrderIdAndCompanyId(orderId, companyId)
+
+        const serviceOrderIdsArray: number[] = []
+
+        for (const object of serviceOrdersIdsObject) {
+            serviceOrderIdsArray.push(object.id)
+        }
+
+        return serviceOrderIdsArray
+    }
+
     async updateLocation(userId: number, serviceOrderId: number) {
         const serviceOrder = await this.serviceOrderRepository.findById(serviceOrderId)
 

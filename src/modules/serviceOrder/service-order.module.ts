@@ -9,6 +9,6 @@ import { UsersModule } from '../users/users.module';
     imports: [DatabaseModule, UsersModule],
     controllers: [ServiceOrderController],
     providers: [ServiceOrderService, ServiceOrderRepository],
-    exports: [ServiceOrderService]
+    exports: [ServiceOrderService, ServiceOrderRepository]
 })
 export class ServiceOrderModule { }

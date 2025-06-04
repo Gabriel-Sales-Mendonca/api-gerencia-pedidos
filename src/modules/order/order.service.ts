@@ -4,6 +4,7 @@ import { OrderRequestDTO, ProductForOrderRequestDTO } from "./dto/order-request.
 import { ProductRepository } from "../product/product.repository";
 import { LocationService } from "../location/location.service";
 import { ServiceOrderService } from "../serviceOrder/service-order.service";
+import { OrderDeleteRequestDTO } from "./dto/order-delete-request.dto";
 
 @Injectable()
 export class OrderService {
@@ -61,6 +62,12 @@ export class OrderService {
 
     async findAll() {
         return await this.orderRepository.findAll()
+    }
+
+    async delete(data: OrderDeleteRequestDTO) {
+        const serviceOrderIds = await this.serviceOrderService.findByOrderIdAndCompanyId(data.orderId, data.companyId)
+
+        await this.orderRepository.delete(data.orderId, data.companyId, serviceOrderIds)
     }
 
 }

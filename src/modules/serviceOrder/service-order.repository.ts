@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { ServiceOrder } from "generated/prisma";
+import { Prisma, ServiceOrder } from "generated/prisma";
 import { PrismaService } from "src/database/prisma/prisma.service";
 
 @Injectable()
@@ -156,6 +156,18 @@ export class ServiceOrderRepository {
     })
   }
 
+  async findByOrderIdAndCompanyId(orderId: number, companyId: number) {
+    return await this.prisma.serviceOrder.findMany({
+      where: {
+        order_id: orderId,
+        company_id: companyId
+      },
+      select: {
+        id: true
+      }
+    })
+  }
+
   async updateLocation(serviceOrderId: number, locationId: number) {
     return await this.prisma.serviceOrder.update({
       where: { id: serviceOrderId },
@@ -188,6 +200,22 @@ export class ServiceOrderRepository {
       },
       data: {
         location_delivery_date: locationDeliveryDate
+      }
+    })
+  }
+
+  async delete(serviceOrderId: number) {
+    await this.prisma.serviceOrder.delete({
+      where: {
+        id: serviceOrderId
+      }
+    })
+  }
+
+  async deleteManyWithTx(serviceOrderIds: number[], tx: Prisma.TransactionClient) {
+    await tx.serviceOrder.deleteMany({
+      where: {
+        id: { in: serviceOrderIds }
       }
     })
   }

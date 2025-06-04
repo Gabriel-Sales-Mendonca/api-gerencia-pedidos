@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, ParseIntPipe, Post, Query } from "@nestjs/common";
 import { OrderService } from "./order.service";
 import { OrderRequestDTO } from "./dto/order-request.dto";
 
@@ -14,6 +14,14 @@ export class OrderController {
     @Get()
     async findAll() {
         return await this.orderService.findAll()
+    }
+
+    @Delete()
+    async delete(
+        @Query('orderId', ParseIntPipe) orderId: number,
+        @Query('companyId', ParseIntPipe) companyId: number
+    ) {
+        await this.orderService.delete({ orderId, companyId })
     }
 
 }

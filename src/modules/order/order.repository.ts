@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/database/prisma/prisma.service";
 import { Order } from "generated/prisma";
+import { ServiceOrderRepository } from "../serviceOrder/service-order.repository";
 
 interface IOrder {
     id: number;
@@ -10,7 +11,7 @@ interface IOrder {
 
 @Injectable()
 export class OrderRepository {
-    constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService, private serviceOrderRepository: ServiceOrderRepository) { }
 
     async insert(order: IOrder): Promise<Order> {
         return await this.prisma.order.create({
@@ -41,6 +42,19 @@ export class OrderRepository {
                 company_id
             }
         });
+    }
+
+    async delete(orderId: number, companyId: number, serviceOrderIds: number[]) {
+        await this.prisma.$transaction(async tx => {
+            await this.serviceOrderRepository.deleteManyWithTx(serviceOrderIds, tx)
+
+            await tx.order.deleteMany({
+                where: {
+                    id: orderId,
+                    company_id: companyId
+                }
+            })
+        })
     }
 
 }
