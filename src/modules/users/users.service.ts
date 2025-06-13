@@ -78,9 +78,8 @@ export class UsersService {
         return await this.usersRepository.delete(userId)
     }
 
-    async updatePassword(payload: JwtPayload, userId: number, newPassword: string, oldPassword: string) {
+    async updatePassword(payload: JwtPayload, userId: number, newPassword: string, oldPassword: string | undefined) {
 
-        oldPassword = oldPassword.trim()
         const hashedPassword = await hash(newPassword.trim(), 10);
 
         if (!payload.roles.includes('ADMIN')) {
@@ -89,6 +88,8 @@ export class UsersService {
                 throw new UnauthorizedException("Informe a senha antiga");
             }
 
+            oldPassword = oldPassword.trim()
+            
             const payloadUserId = parseInt(payload.sub)
 
             if (payloadUserId !== userId) {
