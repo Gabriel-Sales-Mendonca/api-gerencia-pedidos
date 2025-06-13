@@ -1,13 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcrypt';
 
 import { UsersService } from '../users/users.service';
-import { JwtService } from '@nestjs/jwt';
-
-interface ILogin {
-    email: string,
-    password: string
-}
+import { ILogin } from 'src/interfaces/login.interface';
 
 @Injectable()
 export class AuthService {

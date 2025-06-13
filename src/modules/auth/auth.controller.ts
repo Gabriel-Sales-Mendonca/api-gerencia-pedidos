@@ -2,11 +2,8 @@ import { Body, Controller, Post, HttpCode, HttpStatus, Res, Get, Req } from '@ne
 import { AuthService } from './auth.service';
 import { Public } from 'src/decorators/public.decorator';
 import { Response } from 'express';
-
-interface ILogin {
-  email: string,
-  password: string
-}
+import { AuthenticatedRequest } from 'src/interfaces/authenticated-request.interface';
+import { ILogin } from 'src/interfaces/login.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -40,7 +37,7 @@ export class AuthController {
   }
 
   @Get('me')
-  getMe(@Req() req) {
+  getMe(@Req() req: AuthenticatedRequest) {
     return req.user;
   }
 
