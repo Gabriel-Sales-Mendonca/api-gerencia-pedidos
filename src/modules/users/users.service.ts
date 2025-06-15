@@ -22,6 +22,10 @@ export class UsersService {
         return await this.usersRepository.findAll(page, limit);
     }
 
+    async findAllWithoutPagination() {
+        return await this.usersRepository.findAllWithoutPagination()
+    }
+
     async findByEmail(email: string): Promise<User | null> {
         return await this.usersRepository.findByEmail(email.trim());
     }

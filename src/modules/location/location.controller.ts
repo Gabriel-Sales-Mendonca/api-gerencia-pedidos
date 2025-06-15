@@ -13,6 +13,11 @@ export class LocationController {
         return await this.locationService.findAll(pagination);
     }
 
+    @Get('/all')
+    async findAllWithoutPagination() {
+        return await this.locationService.findAllWithoutPagination()
+    }
+
     @Roles('ADMIN')
     @Post()
     async insert(@Body() locationRequestDTO: LocationRequestDTO) {

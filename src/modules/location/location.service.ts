@@ -16,6 +16,10 @@ export class LocationService {
         return this.locationRepository.findAll(page, limit);
     }
 
+    async findAllWithoutPagination() {
+        return await this.locationRepository.findAllWithoutPagination()
+    }
+
     async findById(locationId: number) {
         const location = await this.locationRepository.findById(locationId)
 
