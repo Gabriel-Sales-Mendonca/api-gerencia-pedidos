@@ -41,6 +41,10 @@ export class ServiceOrderService {
         return serviceOrderIdsArray
     }
 
+    async findByOrderId(orderId: number) {
+        return await this.serviceOrderRepository.findByOrderId(orderId)
+    }
+
     async updateLocation(userId: number, serviceOrderId: number) {
         const serviceOrder = await this.serviceOrderRepository.findById(serviceOrderId)
 

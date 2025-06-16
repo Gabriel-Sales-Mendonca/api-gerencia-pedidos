@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { BadRequestException, Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query, Request } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Param, ParseIntPipe, Patch, Query, Request } from "@nestjs/common";
 import { ServiceOrderService } from "./service-order.service";
 import { PaginationDTO } from "src/common/dto/pagination.dto";
 
@@ -7,22 +7,22 @@ import { PaginationDTO } from "src/common/dto/pagination.dto";
 export class ServiceOrderController {
     constructor(private serviceOrderService: ServiceOrderService) { }
 
-    @Post()
-    async insert() {
-
-    }
-
     @Get()
     async findAll(@Query() pagination: PaginationDTO) {
         return await this.serviceOrderService.findAll(pagination)
     }
 
-    @Get('/by-order/:id')
+    @Get('/details-by-order/:id')
     async findDetailsByOrderAndCompany(
         @Param('id') orderId: number,
         @Query('company_id') companyId: number
     ) {
         return await this.serviceOrderService.findDetailsByOrderAndCompany(orderId, companyId)
+    }
+
+    @Get('/by-order/:id')
+    async findByOrderId(@Param('id') orderId: number) {
+        return await this.serviceOrderService.findByOrderId(orderId)
     }
 
     @Patch('/update-location/:id')

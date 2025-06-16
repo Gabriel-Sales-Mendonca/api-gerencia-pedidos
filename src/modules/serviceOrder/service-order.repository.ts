@@ -168,6 +168,65 @@ export class ServiceOrderRepository {
     })
   }
 
+  async findByOrderId(orderId: number) {
+    // 1. Agrupar por order_id + company_id
+    const grouped = await this.prisma.serviceOrder.groupBy({
+      by: ['order_id', 'company_id'],
+      where: {
+        order_id: orderId
+      },
+      _count: {
+        product_id: true
+      }
+    });
+
+    if (grouped.length === 0) {
+      return [];
+    }
+
+    // 2. Mapas auxiliares
+    const companyIds = [...new Set(grouped.map(item => item.company_id))];
+
+    const companies = await this.prisma.company.findMany({
+      where: { id: { in: companyIds } },
+      select: { id: true, name: true }
+    });
+
+    const companyMap = new Map(companies.map(c => [c.id, c.name]));
+
+    const orders = await this.prisma.order.findMany({
+      where: {
+        id: orderId,
+        company_id: { in: companyIds }
+      },
+      select: {
+        id: true,
+        company_id: true,
+        delivery_date: true
+      }
+    });
+
+    const deliveryMap = new Map(
+      orders.map(o => [`${o.id}-${o.company_id}`, o.delivery_date])
+    );
+
+    // 3. Combinar os dados
+    return grouped.map(item => {
+      const deliveryDate = deliveryMap.get(`${item.order_id}-${item.company_id}`);
+      const companyName = companyMap.get(item.company_id);
+
+      return {
+        order_id: item.order_id,
+        company_id: item.company_id,
+        company_name: companyName || '',
+        delivery_date: deliveryDate
+          ? new Intl.DateTimeFormat('pt-BR').format(new Date(deliveryDate))
+          : null,
+        qtd_product: item._count.product_id
+      };
+    });
+  }
+
   async updateLocation(serviceOrderId: number, locationId: number) {
     return await this.prisma.serviceOrder.update({
       where: { id: serviceOrderId },
