@@ -22,6 +22,10 @@ export class ServiceOrderController {
 
     @Get('/by-order/:id')
     async findByOrderId(@Param('id') orderId: number) {
+        if (Number.isNaN(orderId)) {
+            throw new BadRequestException("Informe um número")
+        }
+        
         return await this.serviceOrderService.findByOrderId(orderId)
     }
 
