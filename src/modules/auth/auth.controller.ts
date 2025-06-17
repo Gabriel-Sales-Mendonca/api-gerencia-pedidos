@@ -19,12 +19,13 @@ export class AuthController {
     const { access_token } = await this.authService.signIn(signInDto);
 
     console.log("Já gerei o token")
-    
+
     res.cookie('token', access_token, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 dias
+      domain: '.vercel.app'
     });
 
     return { message: 'Login realizado com sucesso' };
@@ -34,7 +35,9 @@ export class AuthController {
   logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('token', {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: true,
+      sameSite: 'none',
+      domain: '.vercel.app'
     });
     return { message: 'Logout efetuado com sucesso' };
   }
