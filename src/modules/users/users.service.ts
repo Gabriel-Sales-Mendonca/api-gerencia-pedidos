@@ -22,6 +22,10 @@ export class UsersService {
         return await this.usersRepository.findAll(page, limit);
     }
 
+    async findAllWithoutPagination() {
+        return await this.usersRepository.findAllWithoutPagination()
+    }
+
     async findByEmail(email: string): Promise<User | null> {
         return await this.usersRepository.findByEmail(email.trim());
     }
@@ -78,9 +82,8 @@ export class UsersService {
         return await this.usersRepository.delete(userId)
     }
 
-    async updatePassword(payload: JwtPayload, userId: number, newPassword: string, oldPassword: string) {
+    async updatePassword(payload: JwtPayload, userId: number, newPassword: string, oldPassword: string | undefined) {
 
-        oldPassword = oldPassword.trim()
         const hashedPassword = await hash(newPassword.trim(), 10);
 
         if (!payload.roles.includes('ADMIN')) {
@@ -89,6 +92,8 @@ export class UsersService {
                 throw new UnauthorizedException("Informe a senha antiga");
             }
 
+            oldPassword = oldPassword.trim()
+            
             const payloadUserId = parseInt(payload.sub)
 
             if (payloadUserId !== userId) {

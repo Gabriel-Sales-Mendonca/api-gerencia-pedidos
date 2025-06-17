@@ -20,6 +20,11 @@ export class UsersController {
         return await this.usersService.findAll(pagination);
     }
 
+    @Get('/all')
+    async findAllWithoutPagination() {
+        return await this.usersService.findAllWithoutPagination()
+    }
+
     @Get("email")
     async findByEmail(@Body() req: { email: string }) {
         return await this.usersService.findByEmail(req.email);

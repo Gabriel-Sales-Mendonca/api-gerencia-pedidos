@@ -40,7 +40,7 @@ export class OrderService {
             const locationAlmoxarifado = await this.locationService.findByName({ name: 'almoxarifado' })
 
             if (!locationAlmoxarifado) {
-                throw new Error("Localização 'Almoxarifado' não cadastrada")
+                throw new Error("Localização 'almoxarifado' não cadastrada")
             }
 
             await this.serviceOrderService.insert({

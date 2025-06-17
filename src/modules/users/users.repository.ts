@@ -39,6 +39,10 @@ export class UsersRepository {
         }
     }
 
+    async findAllWithoutPagination() {
+        return await this.prisma.user.findMany()
+    }
+
     async findByEmail(emailRequest: string): Promise<User | null> {
         return await this.prisma.user.findUnique({
             where: {

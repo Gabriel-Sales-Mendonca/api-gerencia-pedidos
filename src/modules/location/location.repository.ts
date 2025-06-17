@@ -37,6 +37,10 @@ export class LocationRepository {
 
     }
 
+    async findAllWithoutPagination() {
+        return await this.prisma.location.findMany()
+    }
+
     async findById(locationId: number): Promise<Location | null> {
         return await this.prisma.location.findUnique({
             where: {

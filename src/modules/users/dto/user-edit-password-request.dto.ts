@@ -7,7 +7,5 @@ export class UserEditPasswordRequestDTO {
     newPassword: string;
 
     @IsString()
-    @IsNotEmpty()
-    @Length(4, 100)
-    oldPassword: string;
+    oldPassword?: string;
 }
