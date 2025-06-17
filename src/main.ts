@@ -13,7 +13,7 @@ async function bootstrap() {
         credentials: true
     });
 
-    //teste
+
     app.useGlobalPipes(
         new ValidationPipe({
             transform: true
