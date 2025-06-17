@@ -6,9 +6,10 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
+import { Request } from 'express';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from 'src/decorators/public.decorator';
-import { AuthenticatedRequest, JwtPayload } from 'src/interfaces/authenticated-request.interface';
+import { JwtPayload } from 'src/interfaces/authenticated-request.interface';
 
 
 @Injectable()
@@ -26,8 +27,8 @@ export class AuthGuard implements CanActivate {
             return true;
         }
 
-        const request = context.switchToHttp().getRequest<AuthenticatedRequest>();
-        const token = request.cookies['token']
+        const request = context.switchToHttp().getRequest<Request>();
+        const token = this.extractTokenFromHeader(request);
         if (!token) {
             throw new UnauthorizedException();
         }
@@ -45,5 +46,10 @@ export class AuthGuard implements CanActivate {
             throw new UnauthorizedException();
         }
         return true;
+    }
+
+    private extractTokenFromHeader(request: Request): string | undefined {
+        const [type, token] = request.headers.authorization?.split(' ') ?? [];
+        return type === 'Bearer' ? token : undefined;
     }
 }

@@ -1,9 +1,13 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcrypt';
 
 import { UsersService } from '../users/users.service';
-import { ILogin } from 'src/interfaces/login.interface';
+import { JwtService } from '@nestjs/jwt';
+
+interface ILogin {
+    email: string,
+    password: string
+}
 
 @Injectable()
 export class AuthService {
@@ -25,9 +29,6 @@ export class AuthService {
     }
 
     const payload = { sub: user.id, roles: user.roles };
-
-    console.log("Peguei os dados do usuário: ")
-    console.log(payload)
 
     return {
         access_token: await this.jwtService.signAsync(payload),
