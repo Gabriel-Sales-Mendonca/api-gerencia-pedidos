@@ -9,7 +9,7 @@ async function bootstrap() {
     app.use(cookieParser());
 
     app.enableCors({
-        origin: "https://frontend-gerencia-pedidos.vercel.app/",
+        origin: "https://frontend-gerencia-pedidos.vercel.app",
         credentials: true
     });
 
