@@ -177,7 +177,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\gabri\\Documents\\Gabriel\\Repositorios\\ProjetosParaClientes\\Pró-Hospitalar\\api-gerencia-pedidos\\generated\\prisma",
+      "value": "c:\\Users\\gabri\\Documents\\Gabriel\\Repositorios\\ProjetosParaClientes\\Pró-Hospitalar\\api-gerencia-pedidos\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -191,7 +191,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\gabri\\Documents\\Gabriel\\Repositorios\\ProjetosParaClientes\\Pró-Hospitalar\\api-gerencia-pedidos\\prisma\\schema.prisma",
+    "sourceFilePath": "c:\\Users\\gabri\\Documents\\Gabriel\\Repositorios\\ProjetosParaClientes\\Pró-Hospitalar\\api-gerencia-pedidos\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

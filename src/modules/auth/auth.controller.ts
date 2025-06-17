@@ -18,6 +18,8 @@ export class AuthController {
   ) {
     const { access_token } = await this.authService.signIn(signInDto);
 
+    console.log("Já gerei o token")
+    
     res.cookie('token', access_token, {
       httpOnly: true,
       secure: true,

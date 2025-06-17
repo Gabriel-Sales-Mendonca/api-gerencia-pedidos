@@ -26,6 +26,9 @@ export class AuthService {
 
     const payload = { sub: user.id, roles: user.roles };
 
+    console.log("Peguei os dados do usuário: ")
+    console.log(payload)
+
     return {
         access_token: await this.jwtService.signAsync(payload),
       };

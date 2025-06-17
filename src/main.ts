@@ -8,8 +8,11 @@ async function bootstrap() {
 
     app.use(cookieParser());
 
+    const allowedOrigin = "https://frontend-gerencia-pedidos.vercel.app";
+    console.log("🌍 Origin habilitado para CORS:", allowedOrigin);
+
     app.enableCors({
-        origin: "https://frontend-gerencia-pedidos.vercel.app",
+        origin: allowedOrigin,
         credentials: true
     });
 
