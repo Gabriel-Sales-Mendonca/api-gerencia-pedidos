@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { LocationRepository } from './location.repository';
 import { LocationRequestDTO } from './dto/location-request.dto';
 import { LocationFindAllResponseDTO } from './dto/location-find-all-response.dto';
@@ -35,6 +35,10 @@ export class LocationService {
     }
 
     async insert(locationRequestDTO: LocationRequestDTO) {
+        const location = await this.findByName(locationRequestDTO)
+        if (location) {
+            throw new ConflictException("Essa localização já existe")
+        }
 
         const createdLocation = await this.locationRepository.insert(
             {
