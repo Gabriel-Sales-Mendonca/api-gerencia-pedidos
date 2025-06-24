@@ -27,7 +27,7 @@ export class ServiceOrderRepository {
     page: number,
     limit: number,
     sortBy: 'delivery_date' | 'company_name' | 'qtd_product' = 'delivery_date',
-    sortDirection: 'asc' | 'desc' = 'desc'
+    sortDirection: 'asc' | 'desc' = 'asc'
   ) {
     const skip = (page - 1) * limit;
 
