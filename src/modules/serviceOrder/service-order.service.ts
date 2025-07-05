@@ -90,4 +90,8 @@ export class ServiceOrderService {
         return await this.serviceOrderRepository.updateLocationDeliveryDate(serviceOrderId, locationDeliveryDate)
     }
 
+    async delete(serviceOrderId: number) {
+        return await this.serviceOrderRepository.delete(serviceOrderId)
+    }
+
 }

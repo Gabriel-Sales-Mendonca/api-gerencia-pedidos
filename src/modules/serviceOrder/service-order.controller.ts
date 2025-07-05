@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { BadRequestException, Body, Controller, Get, Param, ParseIntPipe, Patch, Query, Request } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Query, Request } from "@nestjs/common";
 import { ServiceOrderService } from "./service-order.service";
 import { PaginationDTO } from "src/common/dto/pagination.dto";
 
@@ -61,4 +61,10 @@ export class ServiceOrderController {
 
         return await this.serviceOrderService.updateLocationDeliveryDate(serviceOrderId, locationDeliveryDate)
     }
+
+    @Delete('/delete/:id')
+    async delete(@Param('id', ParseIntPipe) serviceOrderId: number) {
+        return await this.serviceOrderService.delete(serviceOrderId)
+    }
+
 }
