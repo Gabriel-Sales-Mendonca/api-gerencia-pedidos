@@ -1,10 +1,6 @@
-import { IsArray, IsInt, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsInt, IsNotEmpty } from "class-validator";
+import { ProductForOrderRequestDTO } from "./product-for-order-request.dto";
 
-export class ProductForOrderRequestDTO {
-    @IsString()
-    @IsNotEmpty()
-    id: string
-}
 
 export class OrderRequestDTO {
     @IsInt()

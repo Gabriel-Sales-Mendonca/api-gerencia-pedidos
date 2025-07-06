@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Prisma, ServiceOrder } from "generated/prisma";
 import { PrismaService } from "src/database/prisma/prisma.service";
+import { ServiceOrderRequestDTO } from "./dto/service-order-request.dto";
 
 @Injectable()
 export class ServiceOrderRepository {
@@ -14,6 +15,12 @@ export class ServiceOrderRepository {
         product_id: product_id,
         company_id: company_id
       }
+    })
+  }
+
+  async insertMany(objects: ServiceOrderRequestDTO[]) {
+    return await this.prisma.serviceOrder.createManyAndReturn({
+      data: objects
     })
   }
 

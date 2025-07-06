@@ -17,6 +17,10 @@ export class ServiceOrderService {
         )
     }
 
+    async insertMany(objects: ServiceOrderRequestDTO[]) {
+        return await this.serviceOrderRepository.insertMany(objects)
+    }
+
     async findAll(pagination: PaginationDTO) {
 
         const page = pagination.page ?? 1;

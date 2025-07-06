@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, ParseIntPipe, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from "@nestjs/common";
 import { OrderService } from "./order.service";
 import { OrderRequestDTO } from "./dto/order-request.dto";
+import { orderAddProductsRequestDTO } from "./dto/order-add-products-request.dto";
 
 @Controller('orders')
 export class OrderController {
@@ -9,6 +10,14 @@ export class OrderController {
     @Post()
     async insert(@Body() orderRequestDTO: OrderRequestDTO) {
         await this.orderService.insert(orderRequestDTO);
+    }
+
+    @Patch("/add-products/:id")
+    async addProducts(
+        @Param('id', ParseIntPipe) orderId: number,
+        @Body() newProducts: orderAddProductsRequestDTO
+    ) {
+        return await this.orderService.addProducts(orderId, newProducts)
     }
 
     @Get()
