@@ -67,4 +67,9 @@ export class ServiceOrderController {
         return await this.serviceOrderService.delete(serviceOrderId)
     }
 
+    @Patch('/finish/:id')
+    async finish(@Param('id', ParseIntPipe) serviceOrderId: number) {
+        return await this.serviceOrderService.finish(serviceOrderId)
+    }
+
 }

@@ -286,4 +286,13 @@ export class ServiceOrderRepository {
     })
   }
 
+  async finish(serviceOrderId: number) {
+    return await this.prisma.serviceOrder.update({
+      where: { id: serviceOrderId },
+      data: {
+        finished: true
+      }
+    })
+  }
+
 }

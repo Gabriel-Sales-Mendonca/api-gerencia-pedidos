@@ -98,4 +98,8 @@ export class ServiceOrderService {
         return await this.serviceOrderRepository.delete(serviceOrderId)
     }
 
+    async finish(serviceOrderId: number) {
+        return await this.serviceOrderRepository.finish(serviceOrderId)
+    }
+
 }
