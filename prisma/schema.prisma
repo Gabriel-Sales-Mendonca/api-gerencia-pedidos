@@ -62,6 +62,7 @@ model ServiceOrder {
   company_id             Int
   location_start_date    DateTime?
   location_delivery_date DateTime?
+  finished               Boolean?
 
   location            Location  @relation("ServiceOrderLocation", fields: [location_id], references: [id])
   destinationLocation Location? @relation("ServiceOrderDestination", fields: [destination_id], references: [id])
@@ -76,6 +77,8 @@ model Order {
   id            Int
   company_id    Int
   delivery_date DateTime?
+  finished      Boolean?
+
   company       Company        @relation(fields: [company_id], references: [id])
   serviceOrders ServiceOrder[]
 
