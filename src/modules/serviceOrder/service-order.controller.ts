@@ -68,8 +68,12 @@ export class ServiceOrderController {
     }
 
     @Patch('/finish/:id')
-    async finish(@Param('id', ParseIntPipe) serviceOrderId: number) {
-        return await this.serviceOrderService.finish(serviceOrderId)
+    async finish(
+        @Param('id', ParseIntPipe) serviceOrderId: number,
+        @Query('order_id', ParseIntPipe) orderId: number,
+        @Query('company_id', ParseIntPipe) companyId: number
+    ) {
+        await this.serviceOrderService.finish(orderId, companyId, serviceOrderId)
     }
 
 }

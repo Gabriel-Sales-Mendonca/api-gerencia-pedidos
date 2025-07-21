@@ -3,10 +3,15 @@ import { ServiceOrderRepository } from "./service-order.repository";
 import { ServiceOrderRequestDTO } from "./dto/service-order-request.dto";
 import { UsersService } from "../users/users.service";
 import { PaginationDTO } from "src/common/dto/pagination.dto";
+import { OrderService } from "../order/order.service";
 
 @Injectable()
 export class ServiceOrderService {
-    constructor(private serviceOrderRepository: ServiceOrderRepository, private userService: UsersService) { }
+    constructor(
+        private serviceOrderRepository: ServiceOrderRepository,
+        private userService: UsersService,
+        private orderService: OrderService
+    ) {}
 
     async insert(serviceOrderRequestDTO: ServiceOrderRequestDTO) {
         await this.serviceOrderRepository.insert(
@@ -98,8 +103,24 @@ export class ServiceOrderService {
         return await this.serviceOrderRepository.delete(serviceOrderId)
     }
 
-    async finish(serviceOrderId: number) {
-        return await this.serviceOrderRepository.finish(serviceOrderId)
+    async finish(orderId: number, companyId: number, serviceOrderId: number) {
+        await this.serviceOrderRepository.finish(serviceOrderId)
+        
+        const listStatusServiceOrder = await this.serviceOrderRepository.findByOrderIdAndCompanyIdToFinalize(orderId, companyId)
+
+        let allServiceOrdersFinished: boolean = true
+
+        for (let index = 0; index < listStatusServiceOrder.length; index++) {
+            if (listStatusServiceOrder[index].finished != true) {
+                allServiceOrdersFinished = false;
+                break
+            }
+        }
+
+        if (allServiceOrdersFinished) {
+            await this.orderService.finish(orderId, companyId)
+        }
+
     }
 
 }

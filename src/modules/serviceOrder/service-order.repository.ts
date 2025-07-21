@@ -175,6 +175,18 @@ export class ServiceOrderRepository {
     })
   }
 
+  async findByOrderIdAndCompanyIdToFinalize(orderId: number, companyId: number) {
+    return await this.prisma.serviceOrder.findMany({
+      where: {
+        order_id: orderId,
+        company_id: companyId
+      },
+      select: {
+        finished: true
+      }
+    })
+  }
+
   async findByOrderId(orderId: number) {
     // 1. Agrupar por order_id + company_id
     const grouped = await this.prisma.serviceOrder.groupBy({

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { DatabaseModule } from 'src/database/database.module';
 import { OrderController } from './order.controller';
 import { OrderService } from './order.service';
@@ -8,9 +8,9 @@ import { LocationModule } from '../location/location.module';
 import { ServiceOrderModule } from '../serviceOrder/service-order.module';
 
 @Module({
-    imports: [DatabaseModule, ProductModule, LocationModule, ServiceOrderModule],
+    imports: [DatabaseModule, ProductModule, LocationModule, forwardRef(() => ServiceOrderModule)],
     controllers: [OrderController],
     providers: [OrderService, OrderRepository],
-    exports: []
+    exports: [OrderService]
 })
 export class OrderModule { }

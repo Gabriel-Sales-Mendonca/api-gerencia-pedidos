@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, Injectable } from "@nestjs/common";
+import { BadRequestException, ConflictException, forwardRef, Inject, Injectable } from "@nestjs/common";
 import { OrderRepository } from "./order.repository";
 import { OrderRequestDTO } from "./dto/order-request.dto";
 import { ProductRepository } from "../product/product.repository";
@@ -15,6 +15,7 @@ export class OrderService {
         private orderRepository: OrderRepository,
         private productRepository: ProductRepository,
         private locationService: LocationService,
+        @Inject(forwardRef(() => ServiceOrderService))
         private serviceOrderService: ServiceOrderService
     ) { }
 
@@ -101,6 +102,10 @@ export class OrderService {
         const serviceOrderIds = await this.serviceOrderService.findByOrderIdAndCompanyId(data.orderId, data.companyId)
 
         await this.orderRepository.delete(data.orderId, data.companyId, serviceOrderIds)
+    }
+
+    async finish(orderId: number, companyId: number) {
+        return await this.orderRepository.finish(orderId, companyId)
     }
 
 }
