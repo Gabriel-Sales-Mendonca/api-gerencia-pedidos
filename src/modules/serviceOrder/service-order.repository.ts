@@ -69,7 +69,8 @@ export class ServiceOrderRepository {
       select: {
         id: true,
         company_id: true,
-        delivery_date: true
+        delivery_date: true,
+        finished: true
       }
     });
 
@@ -77,17 +78,23 @@ export class ServiceOrderRepository {
       orders.map(o => [`${o.id}-${o.company_id}`, o.delivery_date])
     );
 
+    const finished = new Map(
+      orders.map(o => [`${o.id}-${o.company_id}`, o.finished])
+    );
+
     // 2. Juntar dados em um array completo
     const combined = grouped.map(item => {
       const deliveryDate = deliveryMap.get(`${item.order_id}-${item.company_id}`);
       const companyName = companyMap.get(item.company_id);
+      const isFinished = finished.get(`${item.order_id}-${item.company_id}`)
 
       return {
         order_id: item.order_id,
         company_id: item.company_id,
         company_name: companyName || '',
         delivery_date: deliveryDate ? new Date(deliveryDate) : null,
-        qtd_product: item._count.product_id
+        qtd_product: item._count.product_id,
+        finished: isFinished ?? false
       };
     });
 
@@ -135,7 +142,8 @@ export class ServiceOrderRepository {
       delivery_date: item.delivery_date
         ? new Intl.DateTimeFormat('pt-BR').format(item.delivery_date)
         : null,
-      qtd_product: item.qtd_product
+      qtd_product: item.qtd_product,
+      finished: item.finished
     }));
 
     return {
