@@ -123,4 +123,9 @@ export class ServiceOrderService {
 
     }
 
+    async unfinish(orderId: number, companyId: number, serviceOrderId: number) {
+        await this.serviceOrderRepository.unfinish(serviceOrderId)
+        await this.orderService.unfinish(orderId, companyId)
+    }
+
 }

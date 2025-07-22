@@ -76,4 +76,13 @@ export class ServiceOrderController {
         await this.serviceOrderService.finish(orderId, companyId, serviceOrderId)
     }
 
+    @Patch('/unfinish/:id')
+    async unfinish(
+        @Param('id', ParseIntPipe) serviceOrderId: number,
+        @Query('order_id', ParseIntPipe) orderId: number,
+        @Query('company_id', ParseIntPipe) companyId: number
+    ) {
+        await this.serviceOrderService.unfinish(orderId, companyId, serviceOrderId)
+    }
+
 }

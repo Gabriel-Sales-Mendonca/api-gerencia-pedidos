@@ -71,4 +71,18 @@ export class OrderRepository {
         })
     }
 
+    async unfinish(orderId: number, companyId: number) {
+        await this.prisma.order.update({
+            where: {
+                id_company_id: {
+                    id: orderId,
+                    company_id: companyId
+                }
+            },
+            data: {
+                finished: false
+            }
+        })
+    }
+
 }
